@@ -1,0 +1,10 @@
+.timeline-project__subtitle {
+  background-color: rgb(32, 32, 32);
+  margin: 0;
+  padding: 14px 0 0 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: rgb(139, 139, 139);
+}

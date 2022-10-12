@@ -1,0 +1,14 @@
+@import url(./description-project/description-project.css);
+@import url(./description-project/__element/description-project__element.css);
+@import url(./description-project/__title/description-project__title.css);
+@import url(./description-project/__text/description-project__text.css);
+@import url(./timeline-project/timeline-project.css);
+@import url(./timeline-project/__element/timeline-project__element.css);
+@import url(./timeline-project/__element/_right/timeline-project__element_right.css);
+@import url(./timeline-project/__element/_left/timeline-project__element_left.css);
+@import url(./timeline-project/__title/timeline-project__title.css);
+@import url(./timeline-project/__subtitle/timeline-project__subtitle.css);
+
+.about-project {
+  padding: 110px 70px;
+}

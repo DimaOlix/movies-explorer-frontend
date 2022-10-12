@@ -1,0 +1,5 @@
+.about-me__foto {
+  grid-area: foto;
+  justify-self: end;
+  border-radius: 10px;
+}
