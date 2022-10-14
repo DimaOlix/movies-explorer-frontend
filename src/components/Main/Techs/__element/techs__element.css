@@ -12,3 +12,12 @@
   text-align: center;
   letter-spacing: -0.04em;
 }
+
+@media all and (max-width: 768px) {
+  .techs__element {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

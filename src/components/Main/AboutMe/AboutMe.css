@@ -6,5 +6,11 @@
 @import url(./__foto/about-me__foto.css);
 
 .about-me {
-  padding: 90px 50px;
+  padding: 90px 70px;
+}
+
+@media all and (max-width: 400px) {
+  .about-me {
+    padding: 70px 14px;
+  }
 }

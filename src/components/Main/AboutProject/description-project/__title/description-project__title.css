@@ -5,3 +5,18 @@
   letter-spacing: -0.04em;
   margin: 0 0 26px 0;
 }
+
+@media all and (max-width: 768px) {
+  .description-project__title {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .description-project__title {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

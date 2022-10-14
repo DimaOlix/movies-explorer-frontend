@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 // import Header from './Header.js';
@@ -228,26 +229,28 @@ function App() {
 
   return (
     <CurrentUserContext.Provider>    
-      <Switch>
-        <Route path='/'>
-          <Main />
-        </Route>
-        {/* <Route>
-          <Movies path='/Movies' />
-        </Route>
-        <Route>
-          <SavedMovies path='/saved-movies' />
-        </Route>
-        <Route>
-          <Profile path='/profile' />
-        </Route>
-        <Route>
-          <Register path='/signup' />
-        </Route>
-        <Route>
-          <Login path='/signin' />
-        </Route> */}
-      </Switch>
+      <div className='page'>
+        <Switch>
+          <Route path='/'>
+            <Main />
+          </Route>
+          {/* <Route>
+            <Movies path='/Movies' />
+          </Route>
+          <Route>
+            <SavedMovies path='/saved-movies' />
+          </Route>
+          <Route>
+            <Profile path='/profile' />
+          </Route>
+          <Route>
+            <Register path='/signup' />
+          </Route>
+          <Route>
+            <Login path='/signin' />
+          </Route> */}
+        </Switch>
+      </div>
     </CurrentUserContext.Provider>
 
 

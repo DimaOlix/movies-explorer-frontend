@@ -1,0 +1,13 @@
+.portfolio__element {
+  max-width: 1140px;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media all and (max-width: 400px) {
+  .portfolio__element {
+    height: 66px;
+  }
+}

@@ -5,3 +5,10 @@
   font-size: 18px;
   line-height: 20px;
 }
+
+@media all and (max-width: 768px) {
+  .about-me__subtitle {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

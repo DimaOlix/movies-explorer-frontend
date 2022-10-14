@@ -1,0 +1,13 @@
+.footer__element {
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+@media all and (max-width: 400px) {
+  .footer__element {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

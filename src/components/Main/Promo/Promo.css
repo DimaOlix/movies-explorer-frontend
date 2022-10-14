@@ -2,11 +2,25 @@
   max-width: 1200px;
   height: 541px;
   background-color: rgb(39, 39, 39);
-  margin: 0 auto;
+  margin: 0 40px;
   padding-bottom: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: end;
   border-radius: 10px;
+}
+
+@media all and (max-width: 768px) {
+  .promo {
+    margin: 0 20px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .promo {
+    margin: 0 14px;
+    height: 586px;
+    padding-bottom: 17px;
+  }
 }

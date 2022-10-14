@@ -3,3 +3,10 @@
   justify-self: end;
   border-radius: 10px;
 }
+
+@media all and (max-width: 700px) {
+  .about-me__foto {
+    justify-self: center;
+    
+  }
+}

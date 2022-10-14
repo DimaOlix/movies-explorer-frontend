@@ -1,0 +1,33 @@
+.header__button-signup {
+  width: 94px;
+  height: 35px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__button-signup:hover {
+  opacity: .7;
+  border: 1px solid rgb(66, 66, 66);
+  border-radius: 2px;
+}
+
+@media all and (max-width: 768px) {
+  .header__button-signup {
+    height: 32px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .header__button-signup {
+    width: 64px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+}

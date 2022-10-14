@@ -9,3 +9,10 @@
   line-height: 17px;
   text-align: center;
 }
+
+@media all and (max-width: 500px) {
+  .timeline-project__title {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

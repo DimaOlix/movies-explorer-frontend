@@ -8,3 +8,17 @@
   text-align: center;
   letter-spacing: -0.04em;
 }
+
+@media all and (max-width: 768px) {
+  .techs__subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 22px 0 83px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .techs__subtitle {
+    margin: 24px 0 50px;
+  }
+}

@@ -11,3 +11,18 @@
   grid-template-columns: 1fr auto auto;
   align-items: center;
 }
+
+@media all and (max-width: 768px) {
+  .header {
+    padding: 0 30px;
+    height: 74px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .header {
+    padding: 0 14px;
+    height: 74px;
+    column-gap: 16px;
+  }
+}

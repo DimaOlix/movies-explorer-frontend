@@ -1,6 +1,13 @@
 .main {
   max-width: 1280px;
+  margin: 0 auto;
   padding-top: 24px;
   background-color: rgb(32, 32, 32);
   color: #fff;
+}
+
+@media all and (max-width: 768px) {
+  .main {
+    padding-top: 0px;
+  }
 }

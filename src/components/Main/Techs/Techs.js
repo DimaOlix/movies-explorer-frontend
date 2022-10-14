@@ -26,6 +26,9 @@ function Techs() {
             JS
           </li>
           <li className='techs__element'>
+            React
+          </li>
+          <li className='techs__element'>
             GIT
           </li>
           <li className='techs__element'>

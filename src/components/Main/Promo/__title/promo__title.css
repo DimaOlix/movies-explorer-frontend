@@ -7,3 +7,21 @@
   text-align: center;
   margin: auto 0;
 }
+
+@media all and (max-width: 768px) {
+  .promo__title {
+    max-width: 680px;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 52px;
+    letter-spacing: -0.04em;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .promo__title {
+    max-width: 680px;
+    font-size: 29px;
+    line-height: 37px;
+  }
+}
