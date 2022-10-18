@@ -1,0 +1,33 @@
+@import url(./__title/profile__title.css);
+@import url(./__data-conteiner/profile__data-conteiner.css);
+@import url(./__element/profile__element.css);
+@import url(./__element/_position/profile__element_position_top.css);
+@import url(./__name-title/profile__name-title.css);
+@import url(./__name-text/profile__name-text.css);
+@import url(./__email-title/profile__email-title.css);
+@import url(./__email-text/profile__email-text.css);
+@import url(./__link-conteiner/profile__link-conteiner.css);
+@import url(./__button/profile__button.css);
+@import url(./__button/_for/profile__button_for_signout.css);
+
+.profile {
+  width: 100%;
+  height: calc(100vh - 81px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 75px 0 40px;
+}
+
+@media all and (max-width: 768px) {
+  .profile {
+    height: calc(100vh - 74px);
+  }
+}
+
+@media all and (max-width: 400px) {
+  .profile {
+    padding: 75px 30px 40px;
+  }
+}

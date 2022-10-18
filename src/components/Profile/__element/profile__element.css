@@ -1,0 +1,7 @@
+.profile__element {
+  width: 100%;
+  max-width: 410px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+}

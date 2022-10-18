@@ -1,0 +1,16 @@
+.form__input {
+  height: 32px;
+  position: relative;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 0;
+  margin-bottom: 25px;
+  color: #fff;
+  background-color: rgb(32, 32, 32);
+  border: none;
+  border-bottom: 1px solid rgb(139, 139, 139);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

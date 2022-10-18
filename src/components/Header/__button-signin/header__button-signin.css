@@ -11,6 +11,7 @@
   color: black;
   text-decoration: none;
   background-color: rgb(61, 220, 132);
+  margin-left: 25px;
 }
 
 .header__button-signin:hover {
@@ -25,6 +26,7 @@
 
 @media all and (max-width: 400px) {
   .header__button-signin {
+    margin-left: 12px;
     width: 54px;
     height: 26px;
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Main.css';
 import '../shared/header-sections/header-sections.css'
 import Header from '../Header/Header';
@@ -13,7 +14,10 @@ function Main() {
   
   return (
     <section className='main'>
-      <Header />
+      <Header>
+        <Link className='header__button-signup' to='/signup'>Регистрация</Link>
+        <Link className='header__button-signin' to='/signin'>Войти</Link>      
+      </Header>
       <Promo />
       <AboutProject />
       <Techs />

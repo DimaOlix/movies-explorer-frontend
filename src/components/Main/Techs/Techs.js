@@ -5,6 +5,7 @@ function Techs() {
   return (
     <section className='techs'>
       <h2 className='header-sections'>
+        <a name="techs" />
         Технологии
       </h2>
       <div className='techs__conteiner'>

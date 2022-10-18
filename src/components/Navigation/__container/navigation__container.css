@@ -1,0 +1,13 @@
+.navigation__container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  background-color: rgb(32, 32, 32);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}

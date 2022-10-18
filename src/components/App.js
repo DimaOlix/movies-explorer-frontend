@@ -17,6 +17,13 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 // import InfoTooltip from './InfoTooltip.js';
 // import ApiAuth from '../utils/ApiAuth.js'
 import Main from './Main/Main.js';
+import Movies from './Movies/Movies';
+import SavedMovies from './SavedMovies/SavedMovies';
+import Navigation from './Navigation/Navigation';
+import Profile from './Profile/Profile';
+import Register from './Register/Register';
+import Login from './Login/Login';
+import ErrorMessage from './ErrorMessage/ErrorMessage';
 
 
 function App() {
@@ -231,25 +238,29 @@ function App() {
     <CurrentUserContext.Provider>    
       <div className='page'>
         <Switch>
-          <Route path='/'>
+          <Route exact path='/'>
             <Main />
           </Route>
-          {/* <Route>
-            <Movies path='/Movies' />
+          <Route path='/movies'>
+            <Movies />
           </Route>
-          <Route>
-            <SavedMovies path='/saved-movies' />
+          <Route path='/saved-movies'>
+            <SavedMovies />
           </Route>
-          <Route>
-            <Profile path='/profile' />
+          <Route path='/profile'>
+            <Profile />
           </Route>
-          <Route>
-            <Register path='/signup' />
+          <Route path='/signup'>
+            <Register />
           </Route>
-          <Route>
-            <Login path='/signin' />
-          </Route> */}
+          <Route path='/signin'>
+            <Login />
+          </Route>
+          <Route path='/error'>
+            <ErrorMessage />
+          </Route>
         </Switch>
+        <Navigation />
       </div>
     </CurrentUserContext.Provider>
 

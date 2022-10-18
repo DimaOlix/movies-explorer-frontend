@@ -1,0 +1,19 @@
+.search-form__button {
+  grid-area: button;
+  align-self: center;
+  width: 70px;
+  height: 44px;
+  border: none;
+  border-radius: 40px;
+  background-color: rgb(66, 133, 244);
+  padding: 0;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+.search-form__button:hover {
+  opacity: .7;
+}

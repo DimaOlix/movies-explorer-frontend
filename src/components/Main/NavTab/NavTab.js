@@ -1,18 +1,23 @@
 import React from 'react';
 import './NavTab.css'
-import './__element/nav-tab__element.css'
 
 function NavTab() {
   return (
     <ul className='nav-tab'>
-      <li className='nav-tab__element'>
-        О проекте
+      <li>
+        <a className='nav-tab__element' href="#about-project">
+          О проекте
+        </a>
       </li>
-      <li className='nav-tab__element'>
-        Технологии
+      <li>
+        <a className='nav-tab__element' href="#techs">
+          Технологии
+        </a>
       </li>
-      <li className='nav-tab__element'>
-        Студент
+      <li>
+        <a className='nav-tab__element' href="#about-me">
+          Студент
+        </a>
       </li>
     </ul>   
   )

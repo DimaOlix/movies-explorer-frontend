@@ -1,0 +1,9 @@
+.window-form__logo {
+  align-self: flex-start;
+}
+
+@media all and (max-width: 500px) {
+  .window-form__logo {
+    align-self: center;
+  }
+}

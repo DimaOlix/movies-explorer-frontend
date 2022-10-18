@@ -1,0 +1,23 @@
+.profile__button {
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile__button:hover {
+  opacity: .7;
+}
+
+@media all and (max-width: 400px) {
+  .profile__button {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
