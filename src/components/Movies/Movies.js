@@ -5,16 +5,22 @@ import SearchForm from './SearchForm/SearchForm';
 import Footer from '../Footer/Footer'
 import MoreLoader from './MoreLoader/MoreLoader';
 import HeaderContent from '../HeaderContent/HeaderContent';
+import Preloader from '../Preloader/Preloader';
 
 function Movies() {
+  const [ isLoading, setIsLoading ] = React.useState(false);
+
   return(
     <>
       <Header>
-        <HeaderContent />
+        <HeaderContent 
+        />
       </Header>
-      <SearchForm />
-      <MoviesCardList />
-      <MoreLoader />
+       {/* <SearchForm /> */}
+      {/*<MoviesCardList />
+      <MoreLoader /> */}
+      { isLoading ? <Preloader  /> 
+      : <><SearchForm /><MoviesCardList /><MoreLoader /></> }
       <Footer />
     </>
   )

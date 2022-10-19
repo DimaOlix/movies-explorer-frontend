@@ -1,15 +1,15 @@
 import React from 'react';
 import './MoviesCard.css';
 
-function MoviesCard() {
+function MoviesCard({ movie }) {
   return (
     <li className="movies-card">
-      <img className="movies-card__image" src="https://w-dog.ru/wallpapers/9/4/312027660287928/kanarskie-ostrova-atlanticheskij-okean-nebo-noch-zvezdy-mlechnyj-put.jpg" alt="Картинка" />
+      <img className="movies-card__image" src={ movie["image"] } alt="Картинка" />
       <h3 className="movies-card__title">
-        ФильмФильмФильмФильмФильмФильмФильмФильмФильмФильм
+        { movie["nameRU"] }
       </h3>
       <p className="movies-card__duration">
-        12:00
+        { movie["duration"] }
       </p>
       <button 
         type="button" 

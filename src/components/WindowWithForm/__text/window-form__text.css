@@ -3,7 +3,7 @@
   font-size: 14px;
   line-height: 17px;
   color: rgb(139, 139, 139);
-  margin: 16px 0 70px;
+  margin: 16px 0 0;
 }
 
 @media all and (max-width: 500px) {

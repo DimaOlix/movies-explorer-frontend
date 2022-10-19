@@ -2,9 +2,10 @@
 @import url(../vendor/fonts/Inter/font.css);
 
 .page {
-  /* height: 100vh; */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 0 auto;
   background-color: rgb(32, 32, 32);
   color: #fff;

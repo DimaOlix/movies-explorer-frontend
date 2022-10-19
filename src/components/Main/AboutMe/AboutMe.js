@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link as a } from 'react-router-dom';
 import './AboutMe.css'
 import foto from '../../../images/pic__COLOR_pic.jpg'
 
@@ -7,8 +6,7 @@ import foto from '../../../images/pic__COLOR_pic.jpg'
 function AboutMe() {
   return (
     <section className="about-me">
-      <h2 className="header-sections">
-        <a name="about-me" />
+      <h2 id="about-me" className="header-sections">
         Студент
       </h2>
       <div className="about-me__info">

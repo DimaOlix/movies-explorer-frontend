@@ -4,52 +4,80 @@ import Header from '../Header/Header';
 import HeaderContent from '../HeaderContent/HeaderContent';
 import './Profile.css';
 
-function Profile() {
+function Profile({ onMenuPanel }) {
+  const [ onRegister, setOnRegister ] = React.useState(false);
+
+  function handleClickRegister () {
+    setOnRegister(true);
+  }
+
   return (
     <>
       <Header>
-        <HeaderContent />
+        <HeaderContent onMenuPanel={ onMenuPanel } />
       </Header>
       <section className="profile">
         <h2 className="profile__title">
           Привет, Дима
         </h2>
-        <ul className="profile__data-conteiner">
-          <li className="profile__element profile__element_position_top">
-            <p className="profile__name-title">
-              Имя
-            </p>
-            <p className="profile__name-text">
-              Дима на работе
-            </p>
-          </li>          
-          <li className="profile__element">
-            <p className="profile__email-title">
-              Email
-            </p>
-            <p className="profile__email-text">
-              dolix@gmail.com
-            </p>
-          </li>
-        </ul>
-        <ul className="profile__link-conteiner">
-          <li>
-            <button 
-              className="profile__button" 
-              type="button" 
-              name="profile-button-edit"
-            >
-              Редактировать
-            </button>
-          </li>
-          <li>
-            <Link 
-              className="profile__button profile__button_for_signout" 
-              to="/">
-              Выйти из аккаунта
-            </Link>
-          </li>
-        </ul>
+
+        <form className="profile__form" name="profile">
+          <label className="profile__label profile__label_position_top" for="name-input">
+            Имя
+            <input 
+              className="profile__input profile__input_value_name"
+              type="text"
+              id="name-input"
+              name="name"
+              placeholder="Имя"
+              minLength="2"
+              maxLength="30"
+              required
+              disabled = { !onRegister }
+            />
+          </label>
+
+          <label className="profile__label profile__label_position_bottom" for="email-input">
+            E-mail
+            <input 
+              className="profile__input profile__input_value_email"
+              type="email"
+              id="email-input"
+              name="email"
+              placeholder="E-mail"
+              minLength="2"
+              maxLength="30"
+              required
+              disabled = { !onRegister }
+            />
+          </label>
+
+          <button 
+            className={ `profile__button profile__button_for_save ${ onRegister ?
+              '' 
+              : 'profile__button_hidden' }` } 
+            type="submit"
+            name="profile-button-edit">
+            Сохранить
+          </button>
+        </form>
+
+        <button 
+          className={ `profile__button ${ !onRegister ?
+            '' 
+            : 'profile__button_hidden' }` } 
+          type="button" 
+          name="profile-button-edit"
+          onClick={ handleClickRegister }>
+          Редактировать
+        </button>
+        <Link 
+          className={ `profile__button profile__button_for_signout ${ !onRegister ?
+            '' 
+            : 'profile__button_hidden' }` } 
+          to="/">
+          Выйти из аккаунта
+        </Link>
       </section>
     </>
   )

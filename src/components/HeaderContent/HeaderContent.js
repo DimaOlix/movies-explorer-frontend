@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function HeaderContent() {
+function HeaderContent({ onMenuPanel }) {
+
+  const [, setIsMenuPanel ] = React.useContext(CurrentUserContext);
+  
   return (
     <>
       <ul className="header__select-films">
@@ -29,7 +33,8 @@ function HeaderContent() {
       <button
         className="header__button-menu"
         type="button"
-        aria-label="Меню">
+        aria-label="Меню"
+        onClick={ setIsMenuPanel }>
       </button>
     </>
   )

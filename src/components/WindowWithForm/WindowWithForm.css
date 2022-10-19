@@ -16,10 +16,9 @@
   height: 100vh;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 70px 0 0;
+  padding: 60px 0 ;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 

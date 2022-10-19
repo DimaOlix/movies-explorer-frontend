@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../images/logo.svg'
 import './WindowWithForm.css'
 
 function WindowWithForm({ 
@@ -14,7 +13,7 @@ function WindowWithForm({
 }) {
   return (
     <section className="window-form">
-      <img className="window-form__logo" src={ logo } alt="Логотип" />
+      <Link className="window-form__logo" to="/" />
 
       <h2 className="window-form__title">
         { title }

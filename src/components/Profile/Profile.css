@@ -1,18 +1,17 @@
 @import url(./__title/profile__title.css);
-@import url(./__data-conteiner/profile__data-conteiner.css);
-@import url(./__element/profile__element.css);
-@import url(./__element/_position/profile__element_position_top.css);
-@import url(./__name-title/profile__name-title.css);
-@import url(./__name-text/profile__name-text.css);
-@import url(./__email-title/profile__email-title.css);
-@import url(./__email-text/profile__email-text.css);
-@import url(./__link-conteiner/profile__link-conteiner.css);
+@import url(./__form/profile__form.css);
+@import url(./__input/profile__input.css);
+@import url(./__input/_value/profile__input_value_name.css);
+@import url(./__input/_value/profile__input_value_email.css);
+@import url(./__label/profile__label.css);
+@import url(./__label/_position/profile__label_position_top.css);
 @import url(./__button/profile__button.css);
+@import url(./__button/_hidden/profile__button_hidden.css);
 @import url(./__button/_for/profile__button_for_signout.css);
+@import url(./__button/_for/profile__button_for_save.css);
 
 .profile {
   width: 100%;
-  height: calc(100vh - 81px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +25,7 @@
   }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 500px) {
   .profile {
     padding: 75px 30px 40px;
   }

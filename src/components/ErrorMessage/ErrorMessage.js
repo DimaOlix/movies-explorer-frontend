@@ -11,7 +11,7 @@ function ErrorMessage() {
       <p className="error__subtitle">
         { `Страница не найдена` }
       </p>
-      <Link className="error__link-back" to="#">
+      <Link className="error__link-back" to="/">
         Назад
       </Link>
     </section>
