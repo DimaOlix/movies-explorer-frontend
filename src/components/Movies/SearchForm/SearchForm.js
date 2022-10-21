@@ -8,11 +8,12 @@ function SearchForm() {
         type="text" 
         className="search-form__input" 
         name="search-form"
-        placeholder="Фильм" 
+        placeholder="Фильм"
+        required
       />
 
       <button 
-        type="button" 
+        type="submit" 
         className="search-form__button" 
         aria-label="Найти">
         Найти

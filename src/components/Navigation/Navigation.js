@@ -15,7 +15,7 @@ function Navigation({ isOpen }) {
   }
 
   return (
-    <section 
+    <div 
       className={ `navigation ${ !isMenuPanel ? 
         'navigation_hidden'
         : ''}`}
@@ -62,7 +62,7 @@ function Navigation({ isOpen }) {
           onClick={ handleClosePanel } 
         />
       </div>
-    </section>
+    </div>
   )
 }
 

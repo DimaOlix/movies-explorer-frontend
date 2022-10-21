@@ -13,18 +13,20 @@ import Footer from '../Footer/Footer';
 function Main() {
   
   return (
-    <section className="main">
+    <>
       <Header>
         <Link className="header__button-signup" to="/signup">Регистрация</Link>
         <Link className="header__button-signin" to="/signin">Войти</Link>      
       </Header>
-      <Promo />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+      <main className="main">
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
       <Footer />
-    </section>
+    </>
   )
 }
 

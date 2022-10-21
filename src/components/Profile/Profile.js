@@ -4,8 +4,9 @@ import Header from '../Header/Header';
 import HeaderContent from '../HeaderContent/HeaderContent';
 import './Profile.css';
 
-function Profile({ onMenuPanel }) {
+function Profile() {
   const [ onRegister, setOnRegister ] = React.useState(false);
+  const [ isError, setIsError ] = React.useState(false);
 
   function handleClickRegister () {
     setOnRegister(true);
@@ -14,15 +15,15 @@ function Profile({ onMenuPanel }) {
   return (
     <>
       <Header>
-        <HeaderContent onMenuPanel={ onMenuPanel } />
+        <HeaderContent />
       </Header>
-      <section className="profile">
+      <main className="profile">
         <h2 className="profile__title">
           Привет, Дима
         </h2>
 
         <form className="profile__form" name="profile">
-          <label className="profile__label profile__label_position_top" for="name-input">
+          <label className="profile__label profile__label_position_top" htmlFor="name-input">
             Имя
             <input 
               className="profile__input profile__input_value_name"
@@ -37,7 +38,7 @@ function Profile({ onMenuPanel }) {
             />
           </label>
 
-          <label className="profile__label profile__label_position_bottom" for="email-input">
+          <label className="profile__label profile__label_position_bottom" htmlFor="email-input">
             E-mail
             <input 
               className="profile__input profile__input_value_email"
@@ -60,6 +61,11 @@ function Profile({ onMenuPanel }) {
             name="profile-button-edit">
             Сохранить
           </button>
+          <p className={ `profile__error ${isError ? 
+            '' :
+            'profile__error_hidden'}` }>
+            { `Ошибка` }
+          </p>
         </form>
 
         <button 
@@ -78,7 +84,7 @@ function Profile({ onMenuPanel }) {
           to="/">
           Выйти из аккаунта
         </Link>
-      </section>
+      </main>
     </>
   )
 }

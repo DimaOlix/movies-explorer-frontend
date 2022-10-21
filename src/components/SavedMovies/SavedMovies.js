@@ -5,12 +5,11 @@ import SearchForm from '../Movies/SearchForm/SearchForm';
 import Footer from '../Footer/Footer'
 import HeaderContent from '../HeaderContent/HeaderContent';
 
-function SavedMovies({ onMenuPanel }) {
+function SavedMovies() {
   return (
     <>
       <Header>
         <HeaderContent 
-        onMenuPanel = { onMenuPanel } 
       />
       </Header>
       <SearchForm />

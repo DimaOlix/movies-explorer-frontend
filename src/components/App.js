@@ -15,11 +15,6 @@ import ErrorMessage from './ErrorMessage/ErrorMessage';
 function App() {
   const [isMenuPanel, setIsMenuPanel] = React.useState(false);
 
-  function handleMenuPanel() {
-    setIsMenuPanel(true);
-  }
-
-
   return (
     <CurrentUserContext.Provider value={ [isMenuPanel, setIsMenuPanel] }>    
       <div className='page'>
@@ -28,17 +23,13 @@ function App() {
             <Main />
           </Route>
           <Route path='/movies'>
-            <Movies 
-              onMenuPanel = { handleMenuPanel }
-            />
+            <Movies />
           </Route>
           <Route path='/saved-movies'>
-            <SavedMovies onMenuPanel = { handleMenuPanel }
-          />
+            <SavedMovies />
           </Route>
           <Route path='/profile'>
-            <Profile onMenuPanel = { handleMenuPanel } 
-          />
+            <Profile />
           </Route>
           <Route path='/signup'>
             <Register />

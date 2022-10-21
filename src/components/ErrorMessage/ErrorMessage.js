@@ -4,7 +4,7 @@ import './ErrorMessage.css'
 
 function ErrorMessage() {
   return (
-    <section className="error">
+    <div className="error">
       <h2 className="error__title">
         { `404` }
       </h2>
@@ -14,7 +14,7 @@ function ErrorMessage() {
       <Link className="error__link-back" to="/">
         Назад
       </Link>
-    </section>
+    </div>
   )
 }
 

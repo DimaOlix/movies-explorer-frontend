@@ -12,7 +12,7 @@ function WindowWithForm({
   name,
 }) {
   return (
-    <section className="window-form">
+    <div className="window-form">
       <Link className="window-form__logo" to="/" />
 
       <h2 className="window-form__title">
@@ -38,7 +38,7 @@ function WindowWithForm({
           { textLink }
         </Link>
       </p>
-    </section>
+    </div>
   )
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function HeaderContent({ onMenuPanel }) {
+function HeaderContent() {
 
   const [, setIsMenuPanel ] = React.useContext(CurrentUserContext);
   

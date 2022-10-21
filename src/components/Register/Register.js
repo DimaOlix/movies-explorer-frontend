@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import WindowWithForm from '../WindowWithForm/WindowWithForm';
 
-function Register({ children }) {
+function Register() {
   return (
     <WindowWithForm
       title='Добро пожаловать!'

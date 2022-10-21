@@ -16,11 +16,13 @@ function Movies() {
         <HeaderContent 
         />
       </Header>
-       {/* <SearchForm /> */}
-      {/*<MoviesCardList />
-      <MoreLoader /> */}
-      { isLoading ? <Preloader  /> 
-      : <><SearchForm /><MoviesCardList /><MoreLoader /></> }
+      <main className="main">
+        {/* <SearchForm /> */}
+        {/*<MoviesCardList />
+        <MoreLoader /> */}
+        { isLoading ? <Preloader  /> 
+        : <><SearchForm /><MoviesCardList /><MoreLoader /></> }
+      </main>
       <Footer />
     </>
   )

@@ -9,6 +9,8 @@
 @import url(./__button/_hidden/profile__button_hidden.css);
 @import url(./__button/_for/profile__button_for_signout.css);
 @import url(./__button/_for/profile__button_for_save.css);
+@import url(./__error/profile__error.css);
+@import url(./__error/_hidden/profile__error_hidden.css);
 
 .profile {
   width: 100%;
@@ -17,12 +19,6 @@
   align-items: center;
   box-sizing: border-box;
   padding: 75px 0 40px;
-}
-
-@media all and (max-width: 768px) {
-  .profile {
-    height: calc(100vh - 74px);
-  }
 }
 
 @media all and (max-width: 500px) {
