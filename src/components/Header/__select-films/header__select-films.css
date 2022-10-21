@@ -1,0 +1,15 @@
+.header__select-films {
+  width: 212px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  align-items: center;
+  padding: 0;
+}
+
+@media all and (max-width: 768px) {
+  .header__select-films {
+    display: none;
+  }
+}

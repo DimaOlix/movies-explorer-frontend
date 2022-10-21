@@ -1,0 +1,39 @@
+.nav-tab__element {
+  width: 96px;
+  height: 39px;
+  background-color: #303030;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 0 5px;
+}
+
+.nav-tab__element:hover {
+  background-color: rgba(48, 48, 48, .5);
+  cursor: pointer;
+  opacity: .8;
+}
+
+@media all and (max-width: 768px) {
+  .nav-tab__element {
+    height: 36px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .nav-tab__element {
+    width: 82px;
+    height: 26px;
+    margin: 0 3px;
+    font-size: 10px;
+    line-height: 16px;
+    border-radius: 6px;
+  }
+}

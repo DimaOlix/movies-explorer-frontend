@@ -1,0 +1,14 @@
+.navigation__button-close {
+  width: 30px;
+  height: 30px;
+  background: transparent url(../../../images/button-close-menu.svg);
+  background-size: cover;
+  transform: rotate(90deg);
+  border: none;
+  align-self: flex-end;
+  margin: 23px 23px 0 0;
+  cursor: pointer;
+}
+.navigation__button-close:hover {
+  opacity: .7;
+}

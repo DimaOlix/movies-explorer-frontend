@@ -1,0 +1,8 @@
+@import url(./__element/nav-tab__element.css);
+
+.nav-tab {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

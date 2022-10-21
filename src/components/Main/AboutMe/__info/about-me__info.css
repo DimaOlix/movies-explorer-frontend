@@ -1,0 +1,22 @@
+.about-me__info {
+  margin-top: 66px;
+  display: grid;
+  grid-template-areas: 
+  "name foto"
+  "age foto"
+  "text foto"
+  "link foto";
+  column-gap: 49px;
+}
+
+@media all and (max-width: 700px) {
+  .about-me__info {
+    grid-template-areas: 
+    "foto"
+    "name"
+    "age"
+    "text"
+    "link";
+    row-gap: 20px;
+  }
+}

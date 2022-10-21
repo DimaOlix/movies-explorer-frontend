@@ -1,0 +1,16 @@
+.portfolio__title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  mix-blend-mode: normal;
+  color: rgb(139, 139, 139);
+  margin: 0 0 30px;
+}
+
+@media all and (max-width: 400px) {
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 40px;
+  }
+}

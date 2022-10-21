@@ -1,0 +1,11 @@
+.profile__label {
+  height: 45px;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  white-space: nowrap;
+}

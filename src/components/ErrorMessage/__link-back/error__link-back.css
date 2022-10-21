@@ -1,0 +1,22 @@
+.error__link-back {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: rgb(66, 133, 244);
+  margin: 160px 0 0;
+  cursor: pointer;
+}
+
+.error__link-back:hover {
+  opacity: .7;
+}
+
+@media all and (max-width: 400px) {
+  .error__link-back {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 220px 0 0;
+
+  }
+}

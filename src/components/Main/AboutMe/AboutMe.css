@@ -1,0 +1,16 @@
+@import url(./__info/about-me__info.css);
+@import url(./__title/about-me__title.css);
+@import url(./__subtitle/about-me__subtitle.css);
+@import url(./__text/about-me__text.css);
+@import url(./__link/about-me__link.css);
+@import url(./__foto/about-me__foto.css);
+
+.about-me {
+  padding: 90px 70px;
+}
+
+@media all and (max-width: 400px) {
+  .about-me {
+    padding: 70px 14px;
+  }
+}

@@ -1,0 +1,24 @@
+@import url(./__container/portfolio__container.css);
+@import url(./__element/portfolio__element.css);
+@import url(./__element/_position/portfolio__element_position_center.css);
+@import url(./__title/portfolio__title.css);
+@import url(./__link/portfolio__link.css);
+@import url(./__cursor/portfolio__cursor.css);
+
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  padding: 0 70px;
+}
+
+@media all and (max-width: 768px) {
+  .portfolio {
+    padding: 0 50px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .portfolio {
+    padding: 0 14px;
+  }
+}

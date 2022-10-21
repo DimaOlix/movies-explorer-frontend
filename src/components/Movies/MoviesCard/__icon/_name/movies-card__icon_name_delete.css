@@ -1,0 +1,5 @@
+.movies-card__icon_name_delete {
+  width: 21px;
+  height: 21px;
+  background: transparent url(../../../../../images/button-delete-card.svg);
+}

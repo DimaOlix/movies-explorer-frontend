@@ -1,0 +1,6 @@
+@import url(./__button/more-loader__button.css);
+
+.more-loader {
+  display: flex;
+  justify-content: center;
+}
