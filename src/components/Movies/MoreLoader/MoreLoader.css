@@ -1,4 +1,5 @@
 @import url(./__button/more-loader__button.css);
+@import url(./_hidden/more-loader_hidden.css);
 
 .more-loader {
   display: flex;

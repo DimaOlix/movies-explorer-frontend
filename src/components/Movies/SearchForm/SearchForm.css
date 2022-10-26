@@ -1,6 +1,7 @@
 @import url(./__input/.search-form__input.css);
 @import url(./__button/search-form__button.css);
 @import url(./__checkbox/search-form__checkbox.css);
+@import url(./__message/search-form__message.css);
 
 .search-form {
   display: grid;

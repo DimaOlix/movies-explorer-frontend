@@ -1,4 +1,4 @@
-.movies-card-list {
+.search-form__list {
   max-width: 1140px;  
   padding: 70px 0 0;
   margin: 0 70px;
@@ -10,7 +10,7 @@
 }
 
 @media all and (max-width: 768px) {
-  .movies-card-list {
+  .search-form__list {
     margin: 0 30px;
     grid-template-columns: repeat(auto-fit, minmax(339px, 1fr));
     row-gap: 50px;
@@ -18,7 +18,7 @@
 }
 
 @media all and (max-width: 400px) {
-  .movies-card-list {
+  .search-form__list {
     padding: 45px 0 0;
     margin: 0 10px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

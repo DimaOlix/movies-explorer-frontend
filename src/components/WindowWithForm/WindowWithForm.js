@@ -10,6 +10,7 @@ function WindowWithForm({
   textLink,
   textButton,
   name,
+  onSubmit,
 }) {
   return (
     <div className="window-form">
@@ -21,7 +22,8 @@ function WindowWithForm({
       
       <form 
         className={`form form_type_${name}`}
-        name={`${name}`}>
+        name={`${name}`}
+        onSubmit={ onSubmit }>
 
         { children }
 

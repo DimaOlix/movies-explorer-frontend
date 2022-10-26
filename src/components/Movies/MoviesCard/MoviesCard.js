@@ -1,31 +1,42 @@
 import React from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({ movie }) {
-  const [ isSaved, setIsSaved ] = React.useState(true);
+function MoviesCard({ 
+  movie,
+  isSaved,
+  requestSaveMovie, 
+}) {
   const [ isListSavedMovies, setIsListSavedMovies ] = React.useState(false);
+
+  const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
+
+  function handleSaveMovie() {
+    requestSaveMovie(movie)
+  }
+
   return (
     <li className="movies-card">
-      <img className="movies-card__image" src={ movie["image"] } alt="Картинка" />
+      <img className="movies-card__image" src={ `https://api.nomoreparties.co${movie.image.url}` } alt="Картинка" />
       <h3 className="movies-card__title">
         { movie["nameRU"] }
       </h3>
       <p className="movies-card__duration">
-        { movie["duration"] }
+        { duration }
       </p>
       <button 
         type="button" 
-        className={`movies-card__icon movies-card__icon_name_saved ${ !isSaved ? 
+        className={`movies-card__icon movies-card__icon_name_saved ${ !movie.saved ? 
           'movies-card__icon_hidden' :
           '' }` }
         name="button-saved"
       />
       <button 
         type="button" 
-        className={ `movies-card__icon movies-card__icon_name_save ${ isSaved ? 
+        className={ `movies-card__icon movies-card__icon_name_save ${ movie.saved ? 
           'movies-card__icon_hidden' :
           '' }` } 
         name="button-save"
+        onClick={ handleSaveMovie }
       />
       <button 
         type="button"       
