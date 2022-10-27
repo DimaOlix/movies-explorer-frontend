@@ -22,7 +22,7 @@ function App() {
 
   const [ isLoading, setIsLoading ] = React.useState(false);
   const [ errorLoading, setErrorLoading ] = React.useState(false);
-  const [ foundMovies, setFoundMovies ] = React.useState([]);
+  // const [ foundMovies, setFoundMovies ] = React.useState([]);
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
   const [ countMovieCard, setCountMovieCard] = React.useState(1);
@@ -41,7 +41,7 @@ function App() {
   
   React.useEffect(() => {
     loadMovies();
-    searchMovies();
+    // searchMovies(setFoundMovies);
   }, [])
 
   function loadMovies() {
@@ -59,9 +59,11 @@ function App() {
     }
   }
 
-  function searchMovies() {
-    const foundMovies = [];
-    const movies = JSON.parse(localStorage.getItem('movies'));
+  function searchMovies(setMovies, movies = JSON.parse(localStorage.getItem('movies'))) {
+    const searchMovies = [];
+    // if(movies) {
+    //   movies = JSON.parse(localStorage.getItem('movies'));
+    // }
     const searchWord = localStorage.getItem('searchWord');
     const valueCheckbox = localStorage.getItem('checked');
 
@@ -69,41 +71,42 @@ function App() {
       movies.forEach((el) => {
         if(el.nameRU.toLowerCase().includes(searchWord.toLowerCase()) || 
           el.nameEN.toLowerCase().includes(searchWord.toLowerCase())) {
-          foundMovies.push(el);
+          searchMovies.push(el);
         }
       })
     }
 
-    if(!foundMovies.length && searchWord) {
+    if(!searchMovies.length && searchWord) {
       setNotFoundMovies(true);        
     } else {
       setNotFoundMovies(false);        
     }
 
-    setFoundMovies(foundMovies);
+    setMovies(searchMovies);
   }
 
   function handleClickMoreLoad() {
     setCountMovieCard(countMovieCard + 1);
   }
 
-  function isDisabledBtnMore() {
+  function isDisabledBtnMore(movies) {
     if(windowWidth > 768) {
-      return countMovieCard * 12 >= foundMovies.length;
+      return countMovieCard * 12 >= movies.length;
     } else if(windowWidth > 320 && windowWidth <= 768) {
-      return countMovieCard * 8 >= foundMovies.length;        
+      return countMovieCard * 8 >= movies.length;        
     } else {
-      return countMovieCard * 5 >= foundMovies.length;
+      return countMovieCard * 5 >= movies.length;
     }
   }
 
-  function getRenderMovies() {
+  function getRenderMovies(movies) {
+    console.log(movies);
     if(windowWidth > 768) {
-      return [ ...foundMovies.slice(0, countMovieCard * 12)];
+      return [ ...movies.slice(0, countMovieCard * 12)];
     } else if(windowWidth > 320 && windowWidth <= 768) {
-      return [ ...foundMovies.slice(0, countMovieCard * 8)];
+      return [ ...movies.slice(0, countMovieCard * 8)];
     } else {
-      return [ ...foundMovies.slice(0, countMovieCard * 5)];
+      return [ ...movies.slice(0, countMovieCard * 5)];
     }
   }
 
@@ -149,11 +152,14 @@ function App() {
             <Main />
           </Route>
           <Route path='/movies'>
-            <Movies 
+            <Movies
+              // foundMovies={ foundMovies }
+              // setFoundMovies={ setFoundMovies }
               isSaved={ isSaved }
               isLoading={ isLoading }
               errorLoading={ errorLoading }
               notFoundMovies={ notFoundMovies }
+              setNotFoundMovies={ setNotFoundMovies }
               searchMovies={ searchMovies }
               getRenderMovies={ getRenderMovies }
               handleClickMoreLoad={ handleClickMoreLoad }

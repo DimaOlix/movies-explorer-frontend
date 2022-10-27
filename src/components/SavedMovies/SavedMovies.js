@@ -13,21 +13,38 @@ function SavedMovies({
   errorLoading,
   notFoundMovies,
   searchMovies,
-  // getRenderMovies,
+  getRenderMovies,
   handleClickMoreLoad,
   isDisabledBtnMore,
 }) {
-  const [savedMovies, setSavedMovies] = React.useState({});
+  const [savedMovies, setSavedMovies] = React.useState([]);
+  const [renderMovies, setRenderMovies] = React.useState([]);
 
   React.useEffect(() => {
-    handleGetSavedMovies()
+    handleGetSavedMovies();
+    searchMovies(setSavedMovies);
+    handleRenderMovies();
   }, [])
+
   console.log(savedMovies);
+  console.log(renderMovies);
+
+
+
   function handleGetSavedMovies() {
     MainApi.getSavedMovies()
     .then((res) => {
-      setSavedMovies(...res)
+      setSavedMovies([...res])
     })
+  }
+
+  function handleRenderMovies() {
+    setRenderMovies(getRenderMovies(savedMovies));
+  }
+  
+  function handleSubmit() {
+    searchMovies(setSavedMovies, savedMovies);
+    handleRenderMovies();
   }
 
   return (
@@ -37,15 +54,16 @@ function SavedMovies({
       />
       </Header>
       <main className="main">
-        <SearchForm onSubmit={ searchMovies } isLoading={ isLoading } />
+        <SearchForm onSubmit={ handleSubmit } isLoading={ isLoading } />
         { isLoading ? 
         <Preloader  /> :
         <><MoviesCardList 
             notFoundMovies={ notFoundMovies }
             errorLoading={ errorLoading }
-            // getRenderMovies={ getRenderMovies }
+            renderMovies={ renderMovies }
           />
           <MoreLoader 
+            foundMovies={ savedMovies }
             isloadMore={ handleClickMoreLoad }
             isDisabled={ isDisabledBtnMore }
           />

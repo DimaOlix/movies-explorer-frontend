@@ -1,9 +1,9 @@
 import React from 'react';
 import './MoreLoader.css'
 
-function MoreLoader({ isloadMore, isDisabled }) {
+function MoreLoader({ isloadMore, isDisabled, foundMovies }) {
   return (
-    <div className={`more-loader ${ isDisabled() ? 
+    <div className={`more-loader ${ isDisabled(foundMovies) ? 
       'more-loader_hidden' :
       '' }`}>
       <button 

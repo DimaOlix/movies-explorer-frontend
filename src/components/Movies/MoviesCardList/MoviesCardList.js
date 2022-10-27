@@ -7,9 +7,9 @@ function MoviesCardList({
   requestSaveMovie,
   notFoundMovies, 
   errorLoading,
-  getRenderMovies,
+  renderMovies,
  }) {
- 
+ console.log(renderMovies)
   return (
     <ul className='search-form__list'>
       { 
@@ -25,7 +25,7 @@ function MoviesCardList({
         <p className='search-form__message'>
           Видео не найдено
         </p> :
-        getRenderMovies().map((movie) => (
+        renderMovies.map((movie) => (
           <MoviesCard
             isSaved={ isSaved }
             requestSaveMovie={ requestSaveMovie }

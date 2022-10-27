@@ -10,13 +10,20 @@ function MoviesCard({
 
   const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
 
+  function handlingImageUrl() {
+    if(typeof(movie.image) !== 'string') {
+      return `https://api.nomoreparties.co${movie.image.url}`;
+    }
+    return movie.image;
+  }
+
   function handleSaveMovie() {
     requestSaveMovie(movie)
   }
 
   return (
     <li className="movies-card">
-      <img className="movies-card__image" src={ `https://api.nomoreparties.co${movie.image.url}` } alt="Картинка" />
+      <img className="movies-card__image" src={ handlingImageUrl() } alt="Картинка" />
       <h3 className="movies-card__title">
         { movie["nameRU"] }
       </h3>
