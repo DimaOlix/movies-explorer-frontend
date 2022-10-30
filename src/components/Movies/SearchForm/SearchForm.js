@@ -2,7 +2,12 @@ import React from 'react';
 import { useForm } from '../../../hooks/useForm';
 import './SearchForm.css'
 
-function SearchForm({ onSubmit, isLoading }) {
+function SearchForm({ 
+  onSubmit, 
+  movies, 
+  isLoading, 
+  setMovies, 
+}) {
   const [ inputValue, setInputValue ] = React.useState(localStorage.getItem('searchWord'));
   const [ checked, setChecked ] = React.useState(JSON.parse(localStorage.getItem('checked')));
   const{values, handleChange, setValues} = useForm({ value: '' });
@@ -16,7 +21,12 @@ function SearchForm({ onSubmit, isLoading }) {
     if(values['search-form']) {
       localStorage.setItem('checked', checked);
       localStorage.setItem('searchWord', values['search-form']);
-      onSubmit()
+      // if(determinant === 'movies') {
+      //   onSubmit(setMovies, JSON.parse(localStorage.getItem('movies')));
+      // } else {
+      //   onSubmit(setMovies, JSON.parse(localStorage.getItem('saved-movies')));
+      // }
+      onSubmit(setMovies, movies);
     }
   }
   

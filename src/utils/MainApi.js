@@ -108,7 +108,7 @@ class MainApi {
       method: 'PATCH',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
+        // authorization: this.token
       },
       credentials: "include",
       body: JSON.stringify({ 

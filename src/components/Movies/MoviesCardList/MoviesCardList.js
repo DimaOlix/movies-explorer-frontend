@@ -4,12 +4,13 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({
   isSaved,
+  movies,
   requestSaveMovie,
   notFoundMovies, 
   errorLoading,
   getRenderMovies,
  }) {
- 
+
   return (
     <ul className='search-form__list'>
       { 
@@ -25,7 +26,7 @@ function MoviesCardList({
         <p className='search-form__message'>
           Видео не найдено
         </p> :
-        getRenderMovies().map((movie) => (
+        getRenderMovies(movies).map((movie) => (
           <MoviesCard
             isSaved={ isSaved }
             requestSaveMovie={ requestSaveMovie }

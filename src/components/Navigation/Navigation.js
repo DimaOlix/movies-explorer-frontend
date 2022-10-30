@@ -6,6 +6,11 @@ import './Navigation.css'
 function Navigation({ isOpen }) {
   const [isMenuPanel, setIsMenuPanel] = React.useContext(CurrentUserContext);
 
+  function removeSearchWord() {
+    handleClosePanel()
+    localStorage.setItem('searchWord', '')
+  }
+
   function handleClosePanel() {
     setIsMenuPanel(false);
   }
@@ -42,7 +47,7 @@ function Navigation({ isOpen }) {
               className="navigation__link" 
               activeClassName="navigation__element_type_active" 
               to="/movies"
-              onClick={ handleClosePanel }>              
+              onClick={ removeSearchWord }>              
               Фильмы
             </NavLink>
           </li>
@@ -51,7 +56,7 @@ function Navigation({ isOpen }) {
               className="navigation__link" 
               activeClassName="navigation__element_type_active" 
               to="/saved-movies"
-              onClick={ handleClosePanel }>              
+              onClick={ removeSearchWord }>             
               Сохраненные фильмы
             </NavLink>
           </li>

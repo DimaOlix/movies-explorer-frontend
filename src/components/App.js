@@ -23,6 +23,8 @@ function App() {
   const [ isLoading, setIsLoading ] = React.useState(false);
   const [ errorLoading, setErrorLoading ] = React.useState(false);
   const [ foundMovies, setFoundMovies ] = React.useState([]);
+  const [ savedMovies, setSavedMovies ] = React.useState([]);
+  const [ movies, setMovies ] = React.useState([]);
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
   const [ countMovieCard, setCountMovieCard] = React.useState(1);
@@ -31,6 +33,8 @@ function App() {
     setTimeout(setWindowWidth(window.innerWidth), 2000);
   }
 
+  // console.log(foundMovies)
+
   React.useEffect(() => {
     window.addEventListener('resize', detectWindowSize)
 
@@ -38,13 +42,23 @@ function App() {
       window.removeEventListener('resize', detectWindowSize)
     }
   }, [windowWidth])
-  
+ 
   React.useEffect(() => {
-    loadMovies();
-    searchMovies();
+    requestLoadMovies();
+    searchMovies(setFoundMovies, JSON.parse(localStorage.getItem('movies')));
+    requestSavedMovies()
+      .then((res) => {setMovies(res); return res;})
+      .then((res) => {
+        if(!localStorage.getItem('searchWord')) {
+          setSavedMovies(res)
+        } else {
+          searchMovies(setSavedMovies, res);
+        }
+      })
+      .catch((err) => console.log(err))    
   }, [])
 
-  function loadMovies() {
+  function requestLoadMovies() {
     if(!localStorage.getItem('movies')) {
       setIsLoading(true);
       MoviesApi.getMovies()
@@ -59,9 +73,12 @@ function App() {
     }
   }
 
-  function searchMovies() {
+  function requestSavedMovies() {
+      return MainApi.getSavedMovies();
+  }
+
+  function searchMovies(setMovies, movies) {
     const foundMovies = [];
-    const movies = JSON.parse(localStorage.getItem('movies'));
     const searchWord = localStorage.getItem('searchWord');
     const valueCheckbox = localStorage.getItem('checked');
 
@@ -72,6 +89,8 @@ function App() {
           foundMovies.push(el);
         }
       })
+    } else {
+      setMovies(movies);
     }
 
     if(!foundMovies.length && searchWord) {
@@ -80,30 +99,30 @@ function App() {
       setNotFoundMovies(false);        
     }
 
-    setFoundMovies(foundMovies);
+    setMovies(foundMovies);
   }
 
   function handleClickMoreLoad() {
     setCountMovieCard(countMovieCard + 1);
   }
 
-  function isDisabledBtnMore() {
+  function isDisabledBtnMore(movies) {
     if(windowWidth > 768) {
-      return countMovieCard * 12 >= foundMovies.length;
+      return countMovieCard * 12 >= movies.length;
     } else if(windowWidth > 320 && windowWidth <= 768) {
-      return countMovieCard * 8 >= foundMovies.length;        
+      return countMovieCard * 8 >= movies.length;        
     } else {
-      return countMovieCard * 5 >= foundMovies.length;
+      return countMovieCard * 5 >= movies.length;
     }
   }
 
-  function getRenderMovies() {
+  function getRenderMovies(movies) {
     if(windowWidth > 768) {
-      return [ ...foundMovies.slice(0, countMovieCard * 12)];
+      return [ ...movies.slice(0, countMovieCard * 12)];
     } else if(windowWidth > 320 && windowWidth <= 768) {
-      return [ ...foundMovies.slice(0, countMovieCard * 8)];
+      return [ ...movies.slice(0, countMovieCard * 8)];
     } else {
-      return [ ...foundMovies.slice(0, countMovieCard * 5)];
+      return [ ...movies.slice(0, countMovieCard * 5)];
     }
   }
 
@@ -151,6 +170,8 @@ function App() {
           <Route path='/movies'>
             <Movies 
               isSaved={ isSaved }
+              foundMovies={ foundMovies }
+              setFoundMovies={ setFoundMovies }
               isLoading={ isLoading }
               errorLoading={ errorLoading }
               notFoundMovies={ notFoundMovies }
@@ -164,6 +185,11 @@ function App() {
           <Route path='/saved-movies'>
             <SavedMovies
               isLoading={ isLoading }
+              movies={ movies }
+              savedMovies={ savedMovies }
+              setSavedMovies={ setSavedMovies }
+              setMovies={ setMovies }
+              requestSavedMovies={ requestSavedMovies }
               errorLoading={ errorLoading }
               notFoundMovies={ notFoundMovies }
               searchMovies={ searchMovies }

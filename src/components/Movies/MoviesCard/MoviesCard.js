@@ -14,9 +14,17 @@ function MoviesCard({
     requestSaveMovie(movie)
   }
 
+  function handleImageUrlMovie() {
+    if(typeof(movie.image) !== 'string') {
+      return `https://api.nomoreparties.co${movie.image.url}`;
+    }
+
+    return movie.image;
+  }
+
   return (
     <li className="movies-card">
-      <img className="movies-card__image" src={ `https://api.nomoreparties.co${movie.image.url}` } alt="Картинка" />
+      <img className="movies-card__image" src={ handleImageUrlMovie() } alt="Картинка" />
       <h3 className="movies-card__title">
         { movie["nameRU"] }
       </h3>
