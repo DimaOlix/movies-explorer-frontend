@@ -13,8 +13,10 @@ function SavedMovies({
   movies,
   savedMovies,
   setSavedMovies,
+  setFoundMovies,
   setMovies,
   requestSavedMovies,
+  requestSaveMovie,
   errorLoading,
   notFoundMovies,
   searchMovies,
@@ -36,7 +38,9 @@ function SavedMovies({
     <>
       <Header>
         <HeaderContent 
-      />
+          setFoundMovies= { setFoundMovies }
+          setSavedMovies= { setSavedMovies }
+        />
       </Header>
       <main className="main">
         <SearchForm 
@@ -50,6 +54,7 @@ function SavedMovies({
         <><MoviesCardList 
             movies={ savedMovies }
             getRenderMovies={ getRenderMovies }
+            requestSaveMovie={ requestSaveMovie }
             notFoundMovies={ notFoundMovies }
             errorLoading={ errorLoading }
           />

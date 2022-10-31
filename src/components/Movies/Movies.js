@@ -12,6 +12,7 @@ function Movies({
   isSaved,
   foundMovies,
   setFoundMovies,
+  requestSavedMovies,
   requestSaveMovie,
   isLoading,
   errorLoading,
@@ -29,7 +30,9 @@ function Movies({
   return(
     <>
       <Header>
-        <HeaderContent 
+        <HeaderContent
+          setFoundMovies= { setFoundMovies }
+          requestSavedMovies= { requestSavedMovies }
         />
       </Header>
       <main className="main">

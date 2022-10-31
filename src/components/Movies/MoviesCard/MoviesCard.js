@@ -3,15 +3,17 @@ import './MoviesCard.css';
 
 function MoviesCard({ 
   movie,
-  isSaved,
+  // isSaved,
   requestSaveMovie, 
 }) {
   const [ isListSavedMovies, setIsListSavedMovies ] = React.useState(false);
+  const [ isSaved, setIsSaved ] = React.useState(false);
+
 
   const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
-
+  
   function handleSaveMovie() {
-    requestSaveMovie(movie)
+    requestSaveMovie(movie, setIsSaved)
   }
 
   function handleImageUrlMovie() {
@@ -33,14 +35,14 @@ function MoviesCard({
       </p>
       <button 
         type="button" 
-        className={`movies-card__icon movies-card__icon_name_saved ${ !movie.saved ? 
+        className={`movies-card__icon movies-card__icon_name_saved ${ !movie.owner ? 
           'movies-card__icon_hidden' :
           '' }` }
         name="button-saved"
       />
       <button 
         type="button" 
-        className={ `movies-card__icon movies-card__icon_name_save ${ movie.saved ? 
+        className={ `movies-card__icon movies-card__icon_name_save ${ movie.owner ? 
           'movies-card__icon_hidden' :
           '' }` } 
         name="button-save"

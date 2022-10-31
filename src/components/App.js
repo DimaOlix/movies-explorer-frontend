@@ -47,15 +47,18 @@ function App() {
     requestLoadMovies();
     searchMovies(setFoundMovies, JSON.parse(localStorage.getItem('movies')));
     requestSavedMovies()
-      .then((res) => {setMovies(res); return res;})
-      .then((res) => {
-        if(!localStorage.getItem('searchWord')) {
-          setSavedMovies(res)
-        } else {
-          searchMovies(setSavedMovies, res);
-        }
-      })
-      .catch((err) => console.log(err))    
+      // .then((res) => {
+      //   setMovies(res); 
+      //   return res;
+      // })
+      // .then((res) => {
+      //   if(!localStorage.getItem('searchWord')) {
+      //     setSavedMovies(res)
+      //   } else {
+      //     searchMovies(setSavedMovies, res);
+      //   }
+      // })
+      // .catch((err) => console.log(err))    
   }, [])
 
   function requestLoadMovies() {
@@ -73,8 +76,26 @@ function App() {
     }
   }
 
+  // function requestSavedMovies() {
+  //     return MainApi.getSavedMovies();
+  // }
   function requestSavedMovies() {
-      return MainApi.getSavedMovies();
+    getSavedMovies()
+    .then((res) => {
+      setMovies(res); 
+      return res;
+    })
+    .then((res) => {
+      if(!localStorage.getItem('searchWord')) {
+        setSavedMovies(res);
+      } else {
+        searchMovies(setSavedMovies, res);
+      }
+    })
+    .catch((err) => console.log(err))  
+  }
+  function getSavedMovies() {
+    return MainApi.getSavedMovies();
   }
 
   function searchMovies(setMovies, movies) {
@@ -85,8 +106,9 @@ function App() {
     if(searchWord) {
       movies.forEach((el) => {
         if(el.nameRU.toLowerCase().includes(searchWord.toLowerCase()) || 
-          el.nameEN.toLowerCase().includes(searchWord.toLowerCase())) {
+        el.nameEN.toLowerCase().includes(searchWord.toLowerCase())) {
           foundMovies.push(el);
+          console.log(el);
         }
       })
     } else {
@@ -127,7 +149,7 @@ function App() {
   }
 
 
-  function requestSaveMovie(movie) {
+  function requestSaveMovie(movie, setIsSaved) {
     const image = `https://api.nomoreparties.co${movie.image.url}`
     const thumbnail = image;
     const { 
@@ -156,6 +178,7 @@ function App() {
     })
     .then((res) => {
       movie.saved = true
+      setIsSaved(true);
     })
     .catch((err) => {console.log(err); setIsSaved(true) })
   }
@@ -172,6 +195,7 @@ function App() {
               isSaved={ isSaved }
               foundMovies={ foundMovies }
               setFoundMovies={ setFoundMovies }
+              requestSavedMovies={ requestSavedMovies }
               isLoading={ isLoading }
               errorLoading={ errorLoading }
               notFoundMovies={ notFoundMovies }
@@ -188,8 +212,10 @@ function App() {
               movies={ movies }
               savedMovies={ savedMovies }
               setSavedMovies={ setSavedMovies }
+              setFoundMovies= { setFoundMovies }
               setMovies={ setMovies }
               requestSavedMovies={ requestSavedMovies }
+              requestSaveMovie={ requestSaveMovie }
               errorLoading={ errorLoading }
               notFoundMovies={ notFoundMovies }
               searchMovies={ searchMovies }
@@ -199,7 +225,10 @@ function App() {
             />
           </Route>
           <Route path='/profile'>
-            <Profile />
+            <Profile 
+              setFoundMovies= { setFoundMovies }
+              requestSavedMovies= { requestSavedMovies }
+            />
           </Route>
           <Route path='/signup'>
             <Register />
@@ -213,6 +242,8 @@ function App() {
         </Switch>
         <Navigation 
           isOpen = { isMenuPanel }
+          setFoundMovies= { setFoundMovies }
+          requestSavedMovies= { requestSavedMovies }
         />
       </div>
     </CurrentUserContext.Provider>

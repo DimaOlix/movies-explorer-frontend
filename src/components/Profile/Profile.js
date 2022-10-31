@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import HeaderContent from '../HeaderContent/HeaderContent';
 import './Profile.css';
 
-function Profile() {
+function Profile({ setFoundMovies, requestSavedMovies }) {
   const [ onRegister, setOnRegister ] = React.useState(false);
   const [ isError, setIsError ] = React.useState(false);
 
@@ -15,7 +15,10 @@ function Profile() {
   return (
     <>
       <Header>
-        <HeaderContent />
+        <HeaderContent 
+          setFoundMovies= { setFoundMovies }
+          requestSavedMovies= { requestSavedMovies }
+        />
       </Header>
       <main className="profile">
         <h2 className="profile__title">

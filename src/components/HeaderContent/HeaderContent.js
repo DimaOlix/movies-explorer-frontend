@@ -2,9 +2,19 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function HeaderContent() {
+function HeaderContent({ setFoundMovies, requestSavedMovies }) {
 
   const [, setIsMenuPanel ] = React.useContext(CurrentUserContext);
+
+  function handleClickMovies() {
+    localStorage.setItem('searchWord', '');
+    setFoundMovies([]);
+  }
+
+  function handleClickSavedMovies() {
+    localStorage.setItem('searchWord', '');
+    requestSavedMovies();
+  }
   
   return (
     <>
@@ -13,7 +23,8 @@ function HeaderContent() {
           <NavLink 
             className="header__select-button"
             to="/movies"
-            activeClassName="header__select-button_type_active">
+            activeClassName="header__select-button_type_active"
+            onClick={ handleClickMovies }>
             Фильмы
           </NavLink>
         </li>
@@ -21,7 +32,8 @@ function HeaderContent() {
           <NavLink 
             className="header__select-button"
             to="/saved-movies"
-            activeClassName="header__select-button_type_active">
+            activeClassName="header__select-button_type_active"
+            onClick={ handleClickSavedMovies }>            
             Сохранённые фильмы
           </NavLink>
         </li>

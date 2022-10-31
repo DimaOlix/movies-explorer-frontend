@@ -3,12 +3,19 @@ import {  NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './Navigation.css'
 
-function Navigation({ isOpen }) {
+function Navigation({ isOpen, setFoundMovies, requestSavedMovies }) {
   const [isMenuPanel, setIsMenuPanel] = React.useContext(CurrentUserContext);
 
-  function removeSearchWord() {
-    handleClosePanel()
-    localStorage.setItem('searchWord', '')
+  function handleClickMovies() {
+    handleClosePanel();
+    localStorage.setItem('searchWord', '');
+    setFoundMovies([]);
+  }
+
+  function handleClickSavedMovies() {
+    handleClosePanel();
+    localStorage.setItem('searchWord', '');
+    requestSavedMovies();
   }
 
   function handleClosePanel() {
@@ -47,7 +54,7 @@ function Navigation({ isOpen }) {
               className="navigation__link" 
               activeClassName="navigation__element_type_active" 
               to="/movies"
-              onClick={ removeSearchWord }>              
+              onClick={ handleClickMovies }>              
               Фильмы
             </NavLink>
           </li>
@@ -56,7 +63,7 @@ function Navigation({ isOpen }) {
               className="navigation__link" 
               activeClassName="navigation__element_type_active" 
               to="/saved-movies"
-              onClick={ removeSearchWord }>             
+              onClick={ handleClickSavedMovies }>             
               Сохраненные фильмы
             </NavLink>
           </li>
