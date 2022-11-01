@@ -11,6 +11,7 @@ function WindowWithForm({
   textButton,
   name,
   onSubmit,
+  isValid,
 }) {
   return (
     <div className="window-form">
@@ -30,7 +31,8 @@ function WindowWithForm({
         <button 
           className="form__button"
           type="submit" 
-          name={`${name}-button`}>
+          name={`${name}-button`}
+          disabled={ isValid }>
           { textButton }
         </button>        
       </form>

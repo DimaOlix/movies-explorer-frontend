@@ -1,0 +1,7 @@
+.profile__form-error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgb(238, 52, 101);
+  position: absolute;
+}

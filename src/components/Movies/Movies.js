@@ -9,23 +9,32 @@ import Preloader from '../Preloader/Preloader';
 
 
 function Movies({
-  isSaved,
   foundMovies,
+  myMovies,
   setFoundMovies,
   requestSavedMovies,
   requestSaveMovie,
   isLoading,
   errorLoading,
-  notFoundMovies,
   searchMovies,
   getRenderMovies,
   handleClickMoreLoad,
   isDisabledBtnMore,
 }) {
+
+  const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
+
+  function handleCheckFoundMovie() {
+    if(!foundMovies.length && localStorage.getItem('searchWord')) {
+      setNotFoundMovies(true);        
+    } else {
+      setNotFoundMovies(false);        
+    }
+  }
   
-  // React.useEffect(() => {
-  //   searchMovies(setFoundMovies, foundMovies);
-  // },[localStorage])
+  React.useEffect(() => {
+    handleCheckFoundMovie()
+  },[foundMovies])
 
   return(
     <>
@@ -45,8 +54,8 @@ function Movies({
         { isLoading ? 
         <Preloader  /> :
         <><MoviesCardList
-            isSaved={ isSaved }
             movies={ foundMovies }
+            myMovies={ myMovies }
             requestSaveMovie={ requestSaveMovie }
             notFoundMovies={ notFoundMovies }
             errorLoading={ errorLoading }

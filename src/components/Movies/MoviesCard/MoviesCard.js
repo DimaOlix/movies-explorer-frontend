@@ -3,17 +3,18 @@ import './MoviesCard.css';
 
 function MoviesCard({ 
   movie,
-  // isSaved,
-  requestSaveMovie, 
+  requestSaveMovie,
+  isListSavedMovies,
+  requestDeleteMovie,
 }) {
-  const [ isListSavedMovies, setIsListSavedMovies ] = React.useState(false);
-  const [ isSaved, setIsSaved ] = React.useState(false);
-
-
   const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
   
   function handleSaveMovie() {
-    requestSaveMovie(movie, setIsSaved)
+    requestSaveMovie(movie)
+  }
+
+  function handleDeleteMovie() {
+    requestDeleteMovie(movie._id)
   }
 
   function handleImageUrlMovie() {
@@ -35,14 +36,14 @@ function MoviesCard({
       </p>
       <button 
         type="button" 
-        className={`movies-card__icon movies-card__icon_name_saved ${ !movie.owner ? 
+        className={`movies-card__icon movies-card__icon_name_saved ${ !movie.saved ? 
           'movies-card__icon_hidden' :
           '' }` }
         name="button-saved"
       />
       <button 
         type="button" 
-        className={ `movies-card__icon movies-card__icon_name_save ${ movie.owner ? 
+        className={ `movies-card__icon movies-card__icon_name_save ${ movie.saved || isListSavedMovies ? 
           'movies-card__icon_hidden' :
           '' }` } 
         name="button-save"
@@ -54,6 +55,7 @@ function MoviesCard({
           'movies-card__icon_hidden' :
           '' }` } 
         name="button-delete"
+        onClick={ handleDeleteMovie }
       />
     </li>
   )

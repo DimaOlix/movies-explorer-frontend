@@ -39,7 +39,7 @@ class MainApi {
     })
   };
 
-  deleteMovies(movieId) {
+  deleteMovie(movieId) {
     return fetch(`${this.url}/movies/${movieId}`, {
       method: 'DELETE',
       headers: {

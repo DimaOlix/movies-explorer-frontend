@@ -1,5 +1,8 @@
 @import url(./__title/profile__title.css);
 @import url(./__form/profile__form.css);
+@import url(./__form-error/profile__form-error.css);
+@import url(./__form-error/_position/profile__form-error_position_top.css);
+@import url(./__form-error/_position/profile__form-error_position_bottom.css);
 @import url(./__input/profile__input.css);
 @import url(./__input/_value/profile__input_value_name.css);
 @import url(./__input/_value/profile__input_value_email.css);

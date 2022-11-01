@@ -16,24 +16,17 @@ import MainApi from '../utils/MainApi';
 
 function App() {
   const [isMenuPanel, setIsMenuPanel] = React.useState(false);
-  const [ isSaved, setIsSaved ] = React.useState(false);
-
-
-
   const [ isLoading, setIsLoading ] = React.useState(false);
   const [ errorLoading, setErrorLoading ] = React.useState(false);
   const [ foundMovies, setFoundMovies ] = React.useState([]);
   const [ savedMovies, setSavedMovies ] = React.useState([]);
-  const [ movies, setMovies ] = React.useState([]);
-  const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
+  const [ myMovies, setMyMovies ] = React.useState([]);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
   const [ countMovieCard, setCountMovieCard] = React.useState(1);
 
   const detectWindowSize = () => {
     setTimeout(setWindowWidth(window.innerWidth), 2000);
   }
-
-  // console.log(foundMovies)
 
   React.useEffect(() => {
     window.addEventListener('resize', detectWindowSize)
@@ -48,7 +41,7 @@ function App() {
     searchMovies(setFoundMovies, JSON.parse(localStorage.getItem('movies')));
     requestSavedMovies()
       // .then((res) => {
-      //   setMovies(res); 
+      //   setMyMovies(res); 
       //   return res;
       // })
       // .then((res) => {
@@ -82,7 +75,7 @@ function App() {
   function requestSavedMovies() {
     getSavedMovies()
     .then((res) => {
-      setMovies(res); 
+      setMyMovies(res); 
       return res;
     })
     .then((res) => {
@@ -94,34 +87,46 @@ function App() {
     })
     .catch((err) => console.log(err))  
   }
+
   function getSavedMovies() {
     return MainApi.getSavedMovies();
   }
 
-  function searchMovies(setMovies, movies) {
+  async function searchMovies(setMyMovies, movies) {
+    const savedMoviesId = [];
     const foundMovies = [];
     const searchWord = localStorage.getItem('searchWord');
     const valueCheckbox = localStorage.getItem('checked');
+    await getSavedMovies()
+      .then((res) => {
+        res.forEach((el) => {
+          savedMoviesId.push(el.movieId);
+        })
+      })
 
     if(searchWord) {
-      movies.forEach((el) => {
-        if(el.nameRU.toLowerCase().includes(searchWord.toLowerCase()) || 
-        el.nameEN.toLowerCase().includes(searchWord.toLowerCase())) {
-          foundMovies.push(el);
-          console.log(el);
+      movies.forEach((elem) => {
+        if(elem.nameRU.toLowerCase().includes(searchWord.toLowerCase()) || 
+        elem.nameEN.toLowerCase().includes(searchWord.toLowerCase())) {
+          if(savedMoviesId.includes(elem.id)) {
+            elem.saved = true;
+            foundMovies.push(elem);
+          } else {
+            foundMovies.push(elem);
+          }
         }
       })
     } else {
-      setMovies(movies);
+      setMyMovies(movies);
     }
 
-    if(!foundMovies.length && searchWord) {
-      setNotFoundMovies(true);        
-    } else {
-      setNotFoundMovies(false);        
-    }
+    // if(!foundMovies.length && searchWord) {
+    //   setNotFoundMovies(true);        
+    // } else {
+    //   setNotFoundMovies(false);        
+    // }
 
-    setMovies(foundMovies);
+    setMyMovies(foundMovies);
   }
 
   function handleClickMoreLoad() {
@@ -149,7 +154,7 @@ function App() {
   }
 
 
-  function requestSaveMovie(movie, setIsSaved) {
+  function requestSaveMovie(movie) {
     const image = `https://api.nomoreparties.co${movie.image.url}`
     const thumbnail = image;
     const { 
@@ -178,9 +183,21 @@ function App() {
     })
     .then((res) => {
       movie.saved = true
-      setIsSaved(true);
     })
-    .catch((err) => {console.log(err); setIsSaved(true) })
+    .catch((err) => console.log(err))
+  }
+
+  function requestDeleteMovie(movieId) {
+    MainApi.deleteMovie(movieId)
+      .then((res) => {
+        setSavedMovies((movies) => {
+          return movies.filter((el) => {
+            if(el._id !== res._id) {
+              return el;
+            }            
+          })
+        })
+      })
   }
 
   return (
@@ -192,13 +209,12 @@ function App() {
           </Route>
           <Route path='/movies'>
             <Movies 
-              isSaved={ isSaved }
               foundMovies={ foundMovies }
+              myMovies={ myMovies }
               setFoundMovies={ setFoundMovies }
               requestSavedMovies={ requestSavedMovies }
               isLoading={ isLoading }
               errorLoading={ errorLoading }
-              notFoundMovies={ notFoundMovies }
               searchMovies={ searchMovies }
               getRenderMovies={ getRenderMovies }
               handleClickMoreLoad={ handleClickMoreLoad }
@@ -209,19 +225,19 @@ function App() {
           <Route path='/saved-movies'>
             <SavedMovies
               isLoading={ isLoading }
-              movies={ movies }
+              myMovies={ myMovies }
               savedMovies={ savedMovies }
               setSavedMovies={ setSavedMovies }
               setFoundMovies= { setFoundMovies }
-              setMovies={ setMovies }
+              setMovies={ setMyMovies }
               requestSavedMovies={ requestSavedMovies }
               requestSaveMovie={ requestSaveMovie }
               errorLoading={ errorLoading }
-              notFoundMovies={ notFoundMovies }
               searchMovies={ searchMovies }
               getRenderMovies={ getRenderMovies }
               handleClickMoreLoad={ handleClickMoreLoad }
               isDisabledBtnMore={ isDisabledBtnMore }
+              requestDeleteMovie={ requestDeleteMovie }
             />
           </Route>
           <Route path='/profile'>

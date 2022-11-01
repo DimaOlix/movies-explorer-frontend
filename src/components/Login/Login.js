@@ -1,10 +1,16 @@
 import React from 'react';
-import { useForm } from '../../hooks/useForm';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import MainApi from '../../utils/MainApi';
 import WindowWithForm from '../WindowWithForm/WindowWithForm';
 
 function Login() {
-  const{values, handleChange, setValues} = useForm({ email: '', password: '' });
+  const { 
+    values, 
+    handleChange, 
+    errors, 
+    isValid, 
+    resetForm, 
+  } = useFormWithValidation({ email: '', password: '' });
 
   function handleLogin(e) {
     e.preventDefault();
@@ -15,13 +21,14 @@ function Login() {
   
   return (
     <WindowWithForm
-    title='Рады видеть!'
-    text='Ещё не зарегистрированы?'
-    link='/signup'
-    textLink='Регистрация'
-    textButton='Войти'
-    name='login'
-    onSubmit={ handleLogin }>
+      title='Рады видеть!'
+      text='Ещё не зарегистрированы?'
+      link='/signup'
+      textLink='Регистрация'
+      textButton='Войти'
+      name='login'
+      onSubmit={ handleLogin }
+      isValid={ !isValid }>
       <label className="form__label" htmlFor="email-input">
         E-mail
       </label>
@@ -30,7 +37,7 @@ function Login() {
         type="email"
         id="email-input"
         name="email"
-        value={ values.email }
+        value={ values['email'] }
         onChange={ handleChange }
         placeholder="E-mail"
         minLength="2"
@@ -40,6 +47,7 @@ function Login() {
       <span
         className="form__input-error form__input-error_position_top"
         id="email-input-error">
+        { errors['email'] }
       </span>
 
       <label className="form__label" htmlFor="password-input">
@@ -50,7 +58,7 @@ function Login() {
         type="password"
         id="password-input"
         name="password"
-        value={ values.password }
+        value={ values['password'] }
         onChange={ handleChange }
         placeholder="password"
         minLength="2"
@@ -60,6 +68,7 @@ function Login() {
       <span
         className="form__input-error form__input-error_position_middle"
         id="password-input-error">
+        { errors['password'] }
       </span>
     </WindowWithForm>
   )
