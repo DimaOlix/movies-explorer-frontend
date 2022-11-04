@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function HeaderContent({ setFoundMovies, requestSavedMovies }) {
 
-  const [, setIsMenuPanel ] = React.useContext(CurrentUserContext);
+function HeaderContent({ setFoundMovies, requestSavedMovies, setIsMenuPanel }) {
 
   function handleClickMovies() {
     localStorage.setItem('searchWord', '');

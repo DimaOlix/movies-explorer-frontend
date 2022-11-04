@@ -8,7 +8,7 @@ class MainApi {
     if(res.ok) {
       return res.json();
   } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return Promise.reject(res.json());
     }
   };
 
@@ -16,7 +16,7 @@ class MainApi {
     return fetch(`${this.url}/movies`, {
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
+        // authorization: this.token
       },
       credentials: "include",
     })
@@ -44,7 +44,7 @@ class MainApi {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
+        // authorization: this.token
       },
       credentials: "include",
     })
@@ -57,7 +57,7 @@ class MainApi {
     return fetch(`${this.url}/users/me`, {
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
+        // authorization: this.token
       },
       credentials: "include",
     })
@@ -71,7 +71,7 @@ class MainApi {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
+        // authorization: this.token
       },
       credentials: "include",
       body: JSON.stringify({ 
@@ -90,7 +90,7 @@ class MainApi {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
+        // authorization: this.token
       },
       credentials: "include",
       body: JSON.stringify({ 

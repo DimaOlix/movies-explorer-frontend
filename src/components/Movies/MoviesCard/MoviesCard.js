@@ -7,10 +7,11 @@ function MoviesCard({
   isListSavedMovies,
   requestDeleteMovie,
 }) {
+
   const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
   
   function handleSaveMovie() {
-    requestSaveMovie(movie)
+    requestSaveMovie(movie);
   }
 
   function handleDeleteMovie() {

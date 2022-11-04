@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css'
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 import Main from './Main/Main.js';
 import Movies from './Movies/Movies';
@@ -15,15 +15,20 @@ import MainApi from '../utils/MainApi';
 
 
 function App() {
-  const [isMenuPanel, setIsMenuPanel] = React.useState(false);
+  const [ currentUser, setCurrentUser ] = React.useState({ name: '', email: '' });
+  const [ loggedIn, setLoggedIn ] = React.useState(false);
+  const history = useHistory();
+  const [ isMenuPanel, setIsMenuPanel ] = React.useState(false);
   const [ isLoading, setIsLoading ] = React.useState(false);
   const [ errorLoading, setErrorLoading ] = React.useState(false);
+  const [ errorRequest, setErrorRequest ] = React.useState('');
   const [ foundMovies, setFoundMovies ] = React.useState([]);
   const [ savedMovies, setSavedMovies ] = React.useState([]);
   const [ myMovies, setMyMovies ] = React.useState([]);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
   const [ countMovieCard, setCountMovieCard] = React.useState(1);
-
+  
+  
   const detectWindowSize = () => {
     setTimeout(setWindowWidth(window.innerWidth), 2000);
   }
@@ -39,19 +44,7 @@ function App() {
   React.useEffect(() => {
     requestLoadMovies();
     searchMovies(setFoundMovies, JSON.parse(localStorage.getItem('movies')));
-    requestSavedMovies()
-      // .then((res) => {
-      //   setMyMovies(res); 
-      //   return res;
-      // })
-      // .then((res) => {
-      //   if(!localStorage.getItem('searchWord')) {
-      //     setSavedMovies(res)
-      //   } else {
-      //     searchMovies(setSavedMovies, res);
-      //   }
-      // })
-      // .catch((err) => console.log(err))    
+    requestSavedMovies() 
   }, [])
 
   function requestLoadMovies() {
@@ -60,7 +53,6 @@ function App() {
       MoviesApi.getMovies()
       .then((res) => {
         res.forEach((movie) => {
-            // movie.saved = false 
           })
         localStorage.setItem('movies', JSON.stringify(res));
       })
@@ -69,9 +61,6 @@ function App() {
     }
   }
 
-  // function requestSavedMovies() {
-  //     return MainApi.getSavedMovies();
-  // }
   function requestSavedMovies() {
     getSavedMovies()
     .then((res) => {
@@ -97,6 +86,7 @@ function App() {
     const foundMovies = [];
     const searchWord = localStorage.getItem('searchWord');
     const valueCheckbox = localStorage.getItem('checked');
+
     await getSavedMovies()
       .then((res) => {
         res.forEach((el) => {
@@ -119,12 +109,6 @@ function App() {
     } else {
       setMyMovies(movies);
     }
-
-    // if(!foundMovies.length && searchWord) {
-    //   setNotFoundMovies(true);        
-    // } else {
-    //   setNotFoundMovies(false);        
-    // }
 
     setMyMovies(foundMovies);
   }
@@ -153,10 +137,35 @@ function App() {
     }
   }
 
+  function requestRegistration(name, email, password) {
+    return MainApi.creatUser(name, email, password)
+      .then((res) => {
+        history.push('/movies');
+      })
+      .catch((err) => {
+        return err;
+      })
+      .then((res) => {
+        setErrorRequest(res.message);
+      })
+  }
+
+  function requestLogin(email, password) {
+    return MainApi.login(email, password)
+    .then((res) => {
+      history.push('/movies');
+    })
+    .catch((err) => {
+      return err;
+    })
+    .then((res) => {
+      setErrorRequest(res.message);
+    })
+  }
 
   function requestSaveMovie(movie) {
     const image = `https://api.nomoreparties.co${movie.image.url}`
-    const thumbnail = image;
+    const thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
     const { 
       country,
       director,
@@ -168,7 +177,8 @@ function App() {
       nameRU,
       nameEN,
     } = movie
-    MainApi.createMovie({      
+    console.log(movie);
+    MainApi.createMovie({
       country,
       director,
       duration,
@@ -182,7 +192,14 @@ function App() {
       nameEN,
     })
     .then((res) => {
-      movie.saved = true
+      setFoundMovies((state) => {
+        return state.map(el => {
+          if (el.id === movie.id) {
+            el.saved = true;
+          }
+          return el;
+        });
+      });
     })
     .catch((err) => console.log(err))
   }
@@ -201,7 +218,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={ [isMenuPanel, setIsMenuPanel] }>    
+    <CurrentUserContext.Provider value={ [ currentUser, setCurrentUser ] }>    
       <div className='page'>
         <Switch>
           <Route exact path='/'>
@@ -220,6 +237,7 @@ function App() {
               handleClickMoreLoad={ handleClickMoreLoad }
               isDisabledBtnMore={ isDisabledBtnMore }
               requestSaveMovie={ requestSaveMovie }
+              setIsMenuPanel={ setIsMenuPanel }
             />
           </Route>
           <Route path='/saved-movies'>
@@ -238,6 +256,7 @@ function App() {
               handleClickMoreLoad={ handleClickMoreLoad }
               isDisabledBtnMore={ isDisabledBtnMore }
               requestDeleteMovie={ requestDeleteMovie }
+              setIsMenuPanel={ setIsMenuPanel }
             />
           </Route>
           <Route path='/profile'>
@@ -247,10 +266,17 @@ function App() {
             />
           </Route>
           <Route path='/signup'>
-            <Register />
+            <Register 
+              requestRegistration={ requestRegistration } 
+              errorRequest={ errorRequest }
+              setErrorRequest= { setErrorRequest }
+            />
           </Route>
           <Route path='/signin'>
-            <Login />
+            <Login requestLogin={ requestLogin } 
+              errorRequest={ errorRequest }
+              setErrorRequest= { setErrorRequest }
+            />
           </Route>
           <Route path='*'>
             <ErrorMessage />
@@ -260,6 +286,8 @@ function App() {
           isOpen = { isMenuPanel }
           setFoundMovies= { setFoundMovies }
           requestSavedMovies= { requestSavedMovies }
+          isMenuPanel= { isMenuPanel }
+          setIsMenuPanel= { setIsMenuPanel }
         />
       </div>
     </CurrentUserContext.Provider>

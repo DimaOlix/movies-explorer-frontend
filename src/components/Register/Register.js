@@ -3,14 +3,26 @@ import WindowWithForm from '../WindowWithForm/WindowWithForm';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import regularExpressionForName from '../../utils/regularExpressionForName';
 
-function Register() {
+
+function Register({ requestRegistration, errorRequest, setErrorRequest }) {
+  
   const { 
     values, 
-    handleChange, 
+    handleChange,
     errors, 
     isValid, 
     resetForm,
   } = useFormWithValidation({ value: '' });
+
+  React.useEffect(() => {
+    setErrorRequest('');
+  }, [])
+
+  function handleRegistration(e) {
+    e.preventDefault();
+    requestRegistration(values['name'], values['email'], values['password']);
+    resetForm();
+  }
   
   return (
     <WindowWithForm
@@ -20,7 +32,9 @@ function Register() {
       textLink='Войти'
       textButton='Зарегистрироваться'
       name='register'
-      isValid={ !isValid }>
+      isValid={ isValid }
+      onSubmit={ handleRegistration }
+      errorRequest={ errorRequest }>
 
       <label className="form__label" htmlFor="name-input">
         Имя
@@ -82,7 +96,7 @@ function Register() {
         required 
       />
       <span
-        className="form__input-error form__input-error_position_botton"
+        className="form__input-error form__input-error_position_bottom"
         id="password-input-error">
         { errors['password'] }
       </span>

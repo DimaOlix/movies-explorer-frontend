@@ -11,10 +11,6 @@ export function useFormWithValidation() {
     const name = target.name;
     const value = target.value;
 
-    if(target.validity.patternMismatch) {
-      target.setCustomValidity('В поле "Имя" введены запрещенные символы');
-    }
-
     setValues({ ...values, [name]: value });
     setErrors((errors) => {
       if(target.validity.patternMismatch) {

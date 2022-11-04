@@ -23,6 +23,7 @@ function SavedMovies({
   handleClickMoreLoad,
   isDisabledBtnMore,
   requestDeleteMovie,
+  setIsMenuPanel,
 }) {
   const isListSavedMovies = true;
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
@@ -45,6 +46,7 @@ function SavedMovies({
         <HeaderContent 
           setFoundMovies= { setFoundMovies }
           setSavedMovies= { setSavedMovies }
+          setIsMenuPanel= { setIsMenuPanel }
         />
       </Header>
       <main className="main">

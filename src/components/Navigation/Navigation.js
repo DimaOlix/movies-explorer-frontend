@@ -1,10 +1,13 @@
 import React from 'react';
 import {  NavLink } from 'react-router-dom';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './Navigation.css'
 
-function Navigation({ isOpen, setFoundMovies, requestSavedMovies }) {
-  const [isMenuPanel, setIsMenuPanel] = React.useContext(CurrentUserContext);
+function Navigation({ 
+  isMenuPanel,
+  setIsMenuPanel,
+  setFoundMovies,
+  requestSavedMovies 
+}) {
 
   function handleClickMovies() {
     handleClosePanel();

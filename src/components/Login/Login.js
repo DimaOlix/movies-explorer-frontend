@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import MainApi from '../../utils/MainApi';
 import WindowWithForm from '../WindowWithForm/WindowWithForm';
 
-function Login() {
+function Login({ requestLogin, errorRequest, setErrorRequest }) {
+
   const { 
     values, 
     handleChange, 
@@ -12,11 +13,14 @@ function Login() {
     resetForm, 
   } = useFormWithValidation({ email: '', password: '' });
 
+  React.useEffect(() => {
+    setErrorRequest('');
+  }, [])
+
   function handleLogin(e) {
     e.preventDefault();
-    MainApi.login(values['email'], values['password'])
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
+    requestLogin(values['email'], values['password']);
+    resetForm()
   }
   
   return (
@@ -28,7 +32,8 @@ function Login() {
       textButton='Войти'
       name='login'
       onSubmit={ handleLogin }
-      isValid={ !isValid }>
+      isValid={ isValid }
+      errorRequest={ errorRequest }>
       <label className="form__label" htmlFor="email-input">
         E-mail
       </label>
@@ -45,7 +50,7 @@ function Login() {
         required 
       />
       <span
-        className="form__input-error form__input-error_position_top"
+        className="form__input-error form__input-error_position_middle"
         id="email-input-error">
         { errors['email'] }
       </span>
@@ -66,7 +71,7 @@ function Login() {
         required 
       />
       <span
-        className="form__input-error form__input-error_position_middle"
+        className="form__input-error form__input-error_position_bottom"
         id="password-input-error">
         { errors['password'] }
       </span>

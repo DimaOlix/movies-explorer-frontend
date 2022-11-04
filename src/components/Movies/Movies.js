@@ -20,6 +20,7 @@ function Movies({
   getRenderMovies,
   handleClickMoreLoad,
   isDisabledBtnMore,
+  setIsMenuPanel,
 }) {
 
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
@@ -42,6 +43,7 @@ function Movies({
         <HeaderContent
           setFoundMovies= { setFoundMovies }
           requestSavedMovies= { requestSavedMovies }
+          setIsMenuPanel= { setIsMenuPanel }
         />
       </Header>
       <main className="main">
