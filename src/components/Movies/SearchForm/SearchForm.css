@@ -25,6 +25,6 @@
   .search-form {
     grid-template-columns: 212px auto;
     row-gap: 45px;
-    padding: 80px 14px 40px;
+    padding: 60px 14px 40px;
   }
 }

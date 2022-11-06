@@ -1,14 +1,14 @@
 class MainApi {
-  constructor(url, token) {
+  constructor(url) {
     this.url = url;
-    this.token = token;
   }
 
   _getResponseServer(res) {
     if(res.ok) {
       return res.json();
-  } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
+    } else {
+      return res.json()
+        .then((err) => Promise.reject(err))
     }
   };
 
@@ -16,7 +16,6 @@ class MainApi {
     return fetch(`${this.url}/movies`, {
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
       },
       credentials: "include",
     })
@@ -39,12 +38,11 @@ class MainApi {
     })
   };
 
-  deleteMovies(movieId) {
+  deleteMovie(movieId) {
     return fetch(`${this.url}/movies/${movieId}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
       },
       credentials: "include",
     })
@@ -57,7 +55,6 @@ class MainApi {
     return fetch(`${this.url}/users/me`, {
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
       },
       credentials: "include",
     })
@@ -71,7 +68,6 @@ class MainApi {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
       },
       credentials: "include",
       body: JSON.stringify({ 
@@ -90,7 +86,6 @@ class MainApi {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
       },
       credentials: "include",
       body: JSON.stringify({ 
@@ -104,11 +99,10 @@ class MainApi {
   };
 
   editUser(name, email) {
-    return fetch(`${this.url}/movies`, {
+    return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: {
         'Content-type': 'application/json',
-        authorization: this.token
       },
       credentials: "include",
       body: JSON.stringify({ 
@@ -120,6 +114,19 @@ class MainApi {
       return this._getResponseServer(res);
     })
   };
+
+  signout() {
+    return fetch(`${this.url}/signout`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+    .then((res) => {
+      return this._getResponseServer(res);
+    });
+  }
 }
 
 export default new MainApi('https://api.dolih-diplom.student.nomoredomains.icu');

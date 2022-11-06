@@ -11,7 +11,13 @@ function WindowWithForm({
   textButton,
   name,
   onSubmit,
+  isValid,
+  resetForm,
+  onRequest,
+  errorRequest,
 }) {
+
+
   return (
     <div className="window-form">
       <Link className="window-form__logo" to="/" />
@@ -27,19 +33,25 @@ function WindowWithForm({
 
         { children }
 
+        <p className={ `form__request-error ${ !errorRequest ? 
+          'form__request-error_hidden' : 
+          '' }` }>
+          { errorRequest }
+        </p>
         <button 
           className="form__button"
           type="submit" 
-          name={`${name}-button`}>
+          name={`${name}-button`}
+          disabled={ !isValid }>
           { textButton }
         </button>        
-      </form>
       <p className="window-form__text"> 
         { text }
         <Link className="window-form__link" to={ link }>
           { textLink }
         </Link>
       </p>
+      </form>
     </div>
   )
 }

@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './ErrorMessage.css'
 
+
 function ErrorMessage() {
+  const history = useHistory();
+
+  function handleClickBack() {
+    history.goBack();
+  }
+
   return (
     <div className="error">
       <h2 className="error__title">
@@ -11,9 +18,9 @@ function ErrorMessage() {
       <p className="error__subtitle">
         { `Страница не найдена` }
       </p>
-      <Link className="error__link-back" to="/">
+      <button className="error__button-back" onClick={ handleClickBack }>
         Назад
-      </Link>
+      </button>
     </div>
   )
 }

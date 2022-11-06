@@ -1,6 +1,6 @@
 import React from 'react';
 import './AboutMe.css'
-import foto from '../../../images/pic__COLOR_pic.jpg'
+import foto from '../../../images/avatar.jpg'
 
 
 function AboutMe() {

@@ -2,14 +2,18 @@ import React from 'react';
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
+
 function MoviesCardList({
-  isSaved,
+  movies,
+  myMovies,
   requestSaveMovie,
   notFoundMovies, 
   errorLoading,
-  renderMovies,
+  getRenderMovies,
+  isListSavedMovies,
+  requestDeleteMovie,
  }) {
- console.log(renderMovies)
+
   return (
     <ul className='search-form__list'>
       { 
@@ -21,21 +25,37 @@ function MoviesCardList({
         '' 
       }
       { 
-        notFoundMovies ? 
+        notFoundMovies && myMovies.length !== 0 ? 
         <p className='search-form__message'>
           Видео не найдено
-        </p> :
-        renderMovies.map((movie) => (
+        </p> : ''
+      }
+      {
+        getRenderMovies(movies).map((movie, index) => (
           <MoviesCard
-            isSaved={ isSaved }
             requestSaveMovie={ requestSaveMovie }
+            isListSavedMovies={ isListSavedMovies }
+            requestDeleteMovie={ requestDeleteMovie }
             movie={ movie }
-            key={ movie.id }
+            key={ index }
           />
         )) 
       }
+      {
+        !localStorage.getItem('searchWord') && !isListSavedMovies ?
+        <p className='search-form__message'>
+          Введите ключевое слово для поиска видео и нажмите "Найти".
+        </p> :
+        ''
+      }
+      {
+        isListSavedMovies && myMovies.length === 0 ?
+        <p className='search-form__message'>
+          У вас нет сохраненных видео.
+        </p> :
+        ''
+      }
     </ul>
-
   )
 }
 

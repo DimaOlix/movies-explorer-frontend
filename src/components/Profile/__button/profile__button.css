@@ -14,6 +14,11 @@
   opacity: .7;
 }
 
+.profile__button:disabled {
+  opacity: .7;
+  cursor: auto;
+}
+
 @media all and (max-width: 400px) {
   .profile__button {
     font-weight: 400;

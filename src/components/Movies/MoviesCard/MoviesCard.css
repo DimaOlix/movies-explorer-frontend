@@ -1,3 +1,4 @@
+@import url(./__element/movies-card__element.css);
 @import url(./__title/movies-card__title.css);
 @import url(./__image/movies-card__image.css);
 @import url(./__duration/movies-card__duration.css);
@@ -8,10 +9,5 @@
 @import url(./__icon/_name/movies-card__icon_name_delete.css);
 
 .movies-card {
-  position: relative;
-  max-width: 100%;
-  display: grid;
-  grid-template-areas: 
-  "image image"
-  "title duration";
+  list-style-type: none;
 }

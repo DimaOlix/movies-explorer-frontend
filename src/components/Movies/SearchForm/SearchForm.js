@@ -1,22 +1,34 @@
 import React from 'react';
-import { useForm } from '../../../hooks/useForm';
+import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import './SearchForm.css'
 
-function SearchForm({ onSubmit, isLoading }) {
-  const [ inputValue, setInputValue ] = React.useState(localStorage.getItem('searchWord'));
-  const [ checked, setChecked ] = React.useState(JSON.parse(localStorage.getItem('checked')));
-  const{values, handleChange, setValues} = useForm({ value: '' });
 
-  React.useEffect(() => {
-    setValues({ 'search-form': inputValue });
-  }, [inputValue, setValues])
+function SearchForm({ 
+  onSubmit, 
+  movies, 
+  isLoading, 
+  setMovies, 
+}) {
+
+  const [ checked, setChecked ] = React.useState(JSON.parse(localStorage.getItem('checked')));
+  const { 
+    values, 
+    handleChange,
+    isValid,
+    resetForm,
+  } = useFormWithValidation({ 'search-form': '', 'form-checkbox': checked });
   
   function handlerSubmit(e) {
     e.preventDefault();
     if(values['search-form']) {
       localStorage.setItem('checked', checked);
       localStorage.setItem('searchWord', values['search-form']);
-      onSubmit()
+      if(movies === null) {
+        return onSubmit(setMovies, JSON.parse(localStorage.getItem('movies')));
+      }
+
+      onSubmit(setMovies, movies)
+      resetForm({ 'search-form': '' });
     }
   }
   
@@ -42,7 +54,7 @@ function SearchForm({ onSubmit, isLoading }) {
         type="submit" 
         className="search-form__button" 
         aria-label="Найти"
-        disabled={ isLoading ?
+        disabled={ isLoading || !isValid ?
         true :
         false }>
         Найти

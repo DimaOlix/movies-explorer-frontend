@@ -9,63 +9,68 @@ import Preloader from '../Preloader/Preloader';
 
 
 function Movies({
-  // foundMovies,
-  // setFoundMovies,
-  isSaved,
+  foundMovies,
+  myMovies,
+  setFoundMovies,
+  requestSavedMovies,
   requestSaveMovie,
   isLoading,
   errorLoading,
-  notFoundMovies,
   searchMovies,
   getRenderMovies,
   handleClickMoreLoad,
   isDisabledBtnMore,
+  setIsMenuPanel,
 }) {
+
+  const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
   
-  const [ foundMovies, setFoundMovies ] = React.useState([]);
-  const [renderMovies, setRenderMovies] = React.useState([]);
-  // console.log(foundMovies);
-  // console.log(renderMovies);
+  function handleCheckFoundMovie() {
+    if(!foundMovies.length && localStorage.getItem('searchWord')) {
+      setNotFoundMovies(true);        
+    } else {
+      setNotFoundMovies(false);        
+    }
+  }
   
   React.useEffect(() => {
-    searchMovies(setFoundMovies);
-    handleRenderMovies();
-  }, [])
-
-  function handleRenderMovies() {
-    setRenderMovies(getRenderMovies(foundMovies));
-  }
-  
-  function handleSubmit() {
-    searchMovies(setFoundMovies);
-    handleRenderMovies();
-  }
-  
-
+    handleCheckFoundMovie()
+  },[foundMovies])
 
   return(
     <>
       <Header>
-        <HeaderContent 
+        <HeaderContent
+          setFoundMovies= { setFoundMovies }
+          requestSavedMovies= { requestSavedMovies }
+          setIsMenuPanel= { setIsMenuPanel }
         />
       </Header>
       <main className="main">
-        <SearchForm onSubmit={ handleSubmit } isLoading={ isLoading } />
         { isLoading ? 
-        <Preloader  /> :
-        <><MoviesCardList
-            isSaved={ isSaved }
-            requestSaveMovie={ requestSaveMovie }
-            notFoundMovies={ notFoundMovies }
-            errorLoading={ errorLoading }
-            renderMovies={ foundMovies }
-          />
-          <MoreLoader 
-            foundMovies={ foundMovies }
-            isloadMore={ handleClickMoreLoad }
-            isDisabled={ isDisabledBtnMore }
-          />
-        </> }
+          <Preloader  /> :
+          <>
+            <SearchForm 
+              onSubmit={ searchMovies } 
+              isLoading={ isLoading }
+              movies={ JSON.parse(localStorage.getItem('movies')) }
+              setMovies={ setFoundMovies } 
+            />
+            <MoviesCardList
+              movies={ foundMovies }
+              myMovies={ myMovies }
+              requestSaveMovie={ requestSaveMovie }
+              notFoundMovies={ notFoundMovies }
+              errorLoading={ errorLoading }
+              getRenderMovies={ getRenderMovies }
+            />
+            <MoreLoader 
+              movies={ foundMovies }
+              isloadMore={ handleClickMoreLoad }
+              isDisabled={ isDisabledBtnMore }
+            />
+          </>
+        }
       </main>
       <Footer />
     </>

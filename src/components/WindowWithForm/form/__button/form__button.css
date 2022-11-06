@@ -15,6 +15,11 @@
   opacity: .7;
 }
 
+.form__button:disabled {
+  opacity: .7;
+  cursor: auto;
+}
+
 @media all and (max-width: 500px) {
   .form__button {
     font-size: 12px;

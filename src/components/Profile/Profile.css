@@ -1,19 +1,24 @@
 @import url(./__title/profile__title.css);
 @import url(./__form/profile__form.css);
+@import url(./__form-error/profile__form-error.css);
+@import url(./__form-error/_position/profile__form-error_position_top.css);
+@import url(./__form-error/_position/profile__form-error_position_bottom.css);
 @import url(./__input/profile__input.css);
 @import url(./__input/_value/profile__input_value_name.css);
 @import url(./__input/_value/profile__input_value_email.css);
 @import url(./__label/profile__label.css);
 @import url(./__label/_position/profile__label_position_top.css);
 @import url(./__button/profile__button.css);
+@import url(./__text-request/profile__text-request.css);
 @import url(./__button/_hidden/profile__button_hidden.css);
 @import url(./__button/_for/profile__button_for_signout.css);
 @import url(./__button/_for/profile__button_for_save.css);
-@import url(./__error/profile__error.css);
-@import url(./__error/_hidden/profile__error_hidden.css);
+
 
 .profile {
   width: 100%;
+  min-height: 500px;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
