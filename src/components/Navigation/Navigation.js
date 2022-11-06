@@ -2,11 +2,12 @@ import React from 'react';
 import {  NavLink } from 'react-router-dom';
 import './Navigation.css'
 
+
 function Navigation({ 
   isMenuPanel,
   setIsMenuPanel,
   setFoundMovies,
-  requestSavedMovies 
+  requestSavedMovies,
 }) {
 
   function handleClickMovies() {

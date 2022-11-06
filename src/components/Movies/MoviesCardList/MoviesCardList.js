@@ -2,6 +2,7 @@ import React from 'react';
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
+
 function MoviesCardList({
   movies,
   myMovies,
@@ -40,7 +41,6 @@ function MoviesCardList({
           />
         )) 
       }
-
       {
         !localStorage.getItem('searchWord') && !isListSavedMovies ?
         <p className='search-form__message'>
@@ -56,7 +56,6 @@ function MoviesCardList({
         ''
       }
     </ul>
-
   )
 }
 

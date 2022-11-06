@@ -1,7 +1,0 @@
-.profile__error {
-  position: absolute;
-  top: 190px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgb(238, 52, 101);
-}

@@ -4,4 +4,6 @@
   line-height: 12px;
   color: rgb(238, 52, 101);
   position: absolute;
+  right: 0;
+  text-align: end;
 }

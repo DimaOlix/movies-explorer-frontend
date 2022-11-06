@@ -1,3 +1,4 @@
+@import url(./__element/movies-card__element.css);
 @import url(./__title/movies-card__title.css);
 @import url(./__image/movies-card__image.css);
 @import url(./__duration/movies-card__duration.css);
@@ -8,23 +9,5 @@
 @import url(./__icon/_name/movies-card__icon_name_delete.css);
 
 .movies-card {
-  position: relative;
-  max-width: 100%;
-  display: grid;
-  grid-template-areas: 
-  "image image"
-  "title duration";
-}
-
-.movies-card:hover .movies-card__icon {
-  opacity: 1;
-}
-
-
-.movies-card__icon_name_save.movies-card__icon:hover {
-  opacity: .7;
-}
-
-.movies-card__icon_name_delete.movies-card__icon:hover {
-  opacity: .7;
+  list-style-type: none;
 }

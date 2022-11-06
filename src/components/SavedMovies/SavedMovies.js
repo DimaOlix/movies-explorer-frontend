@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer'
 import HeaderContent from '../HeaderContent/HeaderContent';
 import Preloader from '../Preloader/Preloader';
 import MoreLoader from '../Movies/MoreLoader/MoreLoader';
-import MainApi from '../../utils/MainApi';
+
 
 function SavedMovies({
   isLoading,
@@ -14,8 +14,6 @@ function SavedMovies({
   savedMovies,
   setSavedMovies,
   setFoundMovies,
-  setMovies,
-  requestSavedMovies,
   requestSaveMovie,
   errorLoading,
   searchMovies,
@@ -25,6 +23,7 @@ function SavedMovies({
   requestDeleteMovie,
   setIsMenuPanel,
 }) {
+  
   const isListSavedMovies = true;
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
 
@@ -50,30 +49,32 @@ function SavedMovies({
         />
       </Header>
       <main className="main">
-        <SearchForm 
-          onSubmit={ searchMovies } 
-          movies={ myMovies } 
-          isLoading={ isLoading }
-          setMovies={ setSavedMovies }
-        />
         { isLoading ? 
-        <Preloader  /> :
-        <><MoviesCardList 
-            movies={ savedMovies }
-            myMovies={ myMovies }
-            getRenderMovies={ getRenderMovies }
-            requestSaveMovie={ requestSaveMovie }
-            notFoundMovies={ notFoundMovies }
-            errorLoading={ errorLoading }
-            isListSavedMovies={ isListSavedMovies }
-            requestDeleteMovie={ requestDeleteMovie }
-          />
-          <MoreLoader 
-            isloadMore={ handleClickMoreLoad }
-            isDisabled={ isDisabledBtnMore }
-            movies={ savedMovies }
-          />
-        </> }
+          <Preloader  /> :
+          <>
+            <SearchForm 
+              onSubmit={ searchMovies } 
+              movies={ myMovies } 
+              isLoading={ isLoading }
+              setMovies={ setSavedMovies }
+            />        
+            <MoviesCardList 
+              movies={ savedMovies }
+              myMovies={ myMovies }
+              getRenderMovies={ getRenderMovies }
+              requestSaveMovie={ requestSaveMovie }
+              notFoundMovies={ notFoundMovies }
+              errorLoading={ errorLoading }
+              isListSavedMovies={ isListSavedMovies }
+              requestDeleteMovie={ requestDeleteMovie }
+            />
+            <MoreLoader 
+              isloadMore={ handleClickMoreLoad }
+              isDisabled={ isDisabledBtnMore }
+              movies={ savedMovies }
+            />
+          </> 
+        }
       </main>
       <Footer />
     </>

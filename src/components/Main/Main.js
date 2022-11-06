@@ -9,14 +9,28 @@ import Techs from './Techs/Techs'
 import AboutMe from './AboutMe/AboutMe'
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
+import HeaderContent from '../HeaderContent/HeaderContent';
 
-function Main() {
+function Main({
+  setFoundMovies,
+  requestSavedMovies,
+  setIsMenuPanel,
+}) {
   
   return (
     <>
       <Header>
+      { localStorage.getItem('loggedIn') === 'true' ?
+        <HeaderContent 
+          setFoundMovies= { setFoundMovies }
+          requestSavedMovies= { requestSavedMovies }
+          setIsMenuPanel= { setIsMenuPanel }
+        /> :
+        <>
         <Link className="header__button-signup" to="/signup">Регистрация</Link>
-        <Link className="header__button-signin" to="/signin">Войти</Link>      
+        <Link className="header__button-signin" to="/signin">Войти</Link>        
+        </>        
+      }
       </Header>
       <main className="main">
         <Promo />

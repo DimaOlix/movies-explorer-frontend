@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css'
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 import Main from './Main/Main.js';
 import Movies from './Movies/Movies';
@@ -12,11 +12,12 @@ import Login from './Login/Login';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import MoviesApi from '../utils/MoviesApi';
 import MainApi from '../utils/MainApi';
+import ProtectedRoute from './ProtectedRoute';
 
 
 function App() {
   const [ currentUser, setCurrentUser ] = React.useState({ name: '', email: '' });
-  const [ loggedIn, setLoggedIn ] = React.useState(false);
+  const [ loggedIn, setLoggedIn ] = React.useState(localStorage.getItem('loggedIn'));
   const history = useHistory();
   const [ isMenuPanel, setIsMenuPanel ] = React.useState(false);
   const [ isLoading, setIsLoading ] = React.useState(false);
@@ -27,8 +28,6 @@ function App() {
   const [ myMovies, setMyMovies ] = React.useState([]);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
   const [ countMovieCard, setCountMovieCard] = React.useState(1);
-  
-  
   const detectWindowSize = () => {
     setTimeout(setWindowWidth(window.innerWidth), 2000);
   }
@@ -40,28 +39,43 @@ function App() {
       window.removeEventListener('resize', detectWindowSize)
     }
   }, [windowWidth])
- 
+
   React.useEffect(() => {
+    if (loggedIn) {
+      MainApi.getUser()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        if(err.message === 'Отсутствует токен'){
+          localStorage.setItem('loggedIn', false);
+          setLoggedIn(false);
+        }
+        console.log(err);
+      })
+    }
+  }, [loggedIn])
+
+  React.useEffect(() => {
+    if(loggedIn)
     requestLoadMovies();
     searchMovies(setFoundMovies, JSON.parse(localStorage.getItem('movies')));
-    requestSavedMovies() 
+    handleSavedMovies();
   }, [])
 
-  function requestLoadMovies() {
+  async function requestLoadMovies() {
     if(!localStorage.getItem('movies')) {
       setIsLoading(true);
-      MoviesApi.getMovies()
+      await MoviesApi.getMovies()
       .then((res) => {
-        res.forEach((movie) => {
-          })
         localStorage.setItem('movies', JSON.stringify(res));
       })
-      .catch((err) => {setErrorLoading(true)})
+      .catch(() => setErrorLoading(true))
       .finally(() => setIsLoading(false))
     }
   }
 
-  function requestSavedMovies() {
+  function handleSavedMovies() {
     getSavedMovies()
     .then((res) => {
       setMyMovies(res); 
@@ -81,11 +95,30 @@ function App() {
     return MainApi.getSavedMovies();
   }
 
+  function sortingFoundMovies(movie, savedMoviesId, foundMovies) {
+    const valueCheckbox = localStorage.getItem('checked');
+
+    if(valueCheckbox === 'true' && movie.duration < 40) {
+
+      checkingSavedMovies(movie, savedMoviesId, foundMovies);
+    } else if(valueCheckbox !== 'true' && movie.duration >= 40) {
+
+      checkingSavedMovies(movie, savedMoviesId, foundMovies);
+    }
+  }
+
+  function checkingSavedMovies(movie, savedMoviesId, foundMovies) {
+    if(savedMoviesId.includes(movie.id)) {
+      movie.saved = true;
+    }
+
+    foundMovies.push(movie);
+  }
+
   async function searchMovies(setMyMovies, movies) {
     const savedMoviesId = [];
     const foundMovies = [];
     const searchWord = localStorage.getItem('searchWord');
-    const valueCheckbox = localStorage.getItem('checked');
 
     await getSavedMovies()
       .then((res) => {
@@ -98,12 +131,7 @@ function App() {
       movies.forEach((elem) => {
         if(elem.nameRU.toLowerCase().includes(searchWord.toLowerCase()) || 
         elem.nameEN.toLowerCase().includes(searchWord.toLowerCase())) {
-          if(savedMoviesId.includes(elem.id)) {
-            elem.saved = true;
-            foundMovies.push(elem);
-          } else {
-            foundMovies.push(elem);
-          }
+          sortingFoundMovies(elem, savedMoviesId, foundMovies);
         }
       })
     } else {
@@ -138,29 +166,60 @@ function App() {
   }
 
   function requestRegistration(name, email, password) {
-    return MainApi.creatUser(name, email, password)
-      .then((res) => {
+    setIsLoading(true);
+    MainApi.creatUser(name, email, password)
+      .then(() => {
         history.push('/movies');
       })
       .catch((err) => {
-        return err;
+        setErrorRequest(err.message);
       })
-      .then((res) => {
-        setErrorRequest(res.message);
-      })
+      .finally(() => setIsLoading(false))
   }
 
   function requestLogin(email, password) {
+    setIsLoading(true);
     return MainApi.login(email, password)
-    .then((res) => {
+    .then(() => {
+      setLoggedIn(() => {
+        localStorage.setItem('loggedIn', true);
+        return true;
+      });
+      requestLoadMovies();
       history.push('/movies');
     })
     .catch((err) => {
-      return err;
+      setErrorRequest(err.message);
     })
+    .finally(() => setIsLoading(false))
+  }
+
+  function requestEditUser(name, email) {
+    setIsLoading(true);
+    MainApi.editUser(name, email)
+      .then((res) => {
+        setCurrentUser({ name: res.name, email: res.email });
+        setErrorRequest('Данные успешно изменены!')
+      })
+      .catch((err) => {
+        setErrorRequest(err.message);
+      })
+      .finally(() => setIsLoading(false))
+  }
+
+  function requestSignout() {
+    setIsLoading(true);
+    MainApi.signout()
     .then((res) => {
-      setErrorRequest(res.message);
+      localStorage.clear();
+      setLoggedIn(false);
+      history.push('/');
+      setFoundMovies([]);
     })
+    .catch((err) => {
+      setErrorRequest(err);
+    })
+    .finally(() => setIsLoading(false))
   }
 
   function requestSaveMovie(movie) {
@@ -177,7 +236,7 @@ function App() {
       nameRU,
       nameEN,
     } = movie
-    console.log(movie);
+
     MainApi.createMovie({
       country,
       director,
@@ -204,88 +263,125 @@ function App() {
     .catch((err) => console.log(err))
   }
 
+  function filterDeleteMovies(movies, deletedMovies) {
+    return movies.filter((el) => {
+      if(el._id !== deletedMovies._id) {
+        return el;
+      }
+    }) 
+  }
+
   function requestDeleteMovie(movieId) {
     MainApi.deleteMovie(movieId)
       .then((res) => {
         setSavedMovies((movies) => {
-          return movies.filter((el) => {
-            if(el._id !== res._id) {
-              return el;
-            }            
-          })
-        })
+          return filterDeleteMovies(movies, res);
+        });
+        setMyMovies((movies) => {
+          return filterDeleteMovies(movies, res);
+        });
       })
+      .catch((err) => console.log(err))
   }
+
+
 
   return (
     <CurrentUserContext.Provider value={ [ currentUser, setCurrentUser ] }>    
-      <div className='page'>
+      <div className="page">
         <Switch>
-          <Route exact path='/'>
-            <Main />
+          <Route path="/signup">
+            { loggedIn ? 
+              Redirect('/') : 
+              <Register 
+                requestRegistration={ requestRegistration } 
+                errorRequest={ errorRequest }
+                setErrorRequest= { setErrorRequest }
+                isLoading={ isLoading }
+              />
+            }
           </Route>
-          <Route path='/movies'>
-            <Movies 
-              foundMovies={ foundMovies }
-              myMovies={ myMovies }
-              setFoundMovies={ setFoundMovies }
-              requestSavedMovies={ requestSavedMovies }
-              isLoading={ isLoading }
-              errorLoading={ errorLoading }
-              searchMovies={ searchMovies }
-              getRenderMovies={ getRenderMovies }
-              handleClickMoreLoad={ handleClickMoreLoad }
-              isDisabledBtnMore={ isDisabledBtnMore }
-              requestSaveMovie={ requestSaveMovie }
-              setIsMenuPanel={ setIsMenuPanel }
-            />
+
+          <Route path="/signin">
+            { loggedIn ? 
+              Redirect('/') :
+              <Login requestLogin={ requestLogin } 
+                errorRequest={ errorRequest }
+                setErrorRequest= { setErrorRequest }
+                isLoading={ isLoading }
+              />
+            }
           </Route>
-          <Route path='/saved-movies'>
-            <SavedMovies
-              isLoading={ isLoading }
-              myMovies={ myMovies }
-              savedMovies={ savedMovies }
-              setSavedMovies={ setSavedMovies }
+
+          <ProtectedRoute 
+            loggedIn={loggedIn}  
+            path="/movies"
+            component={ Movies }
+            foundMovies={ foundMovies }
+            myMovies={ myMovies }
+            setFoundMovies={ setFoundMovies }
+            requestSavedMovies={ handleSavedMovies }
+            isLoading={ isLoading }
+            errorLoading={ errorLoading }
+            searchMovies={ searchMovies }
+            getRenderMovies={ getRenderMovies }
+            handleClickMoreLoad={ handleClickMoreLoad }
+            isDisabledBtnMore={ isDisabledBtnMore }
+            requestSaveMovie={ requestSaveMovie }
+            setIsMenuPanel={ setIsMenuPanel }
+          />
+
+          <ProtectedRoute 
+            loggedIn={loggedIn}  
+            path="/saved-movies"
+            component={ SavedMovies }
+            isLoading={ isLoading }
+            myMovies={ myMovies }
+            savedMovies={ savedMovies }
+            setSavedMovies={ setSavedMovies }
+            setFoundMovies= { setFoundMovies }
+            requestSaveMovie={ requestSaveMovie }
+            errorLoading={ errorLoading }
+            searchMovies={ searchMovies }
+            getRenderMovies={ getRenderMovies }
+            handleClickMoreLoad={ handleClickMoreLoad }
+            isDisabledBtnMore={ isDisabledBtnMore }
+            requestDeleteMovie={ requestDeleteMovie }
+            setIsMenuPanel={ setIsMenuPanel }
+          />
+
+          <ProtectedRoute 
+            loggedIn={loggedIn}  
+            path="/profile"
+            component={ Profile }
+            isLoading={ isLoading }
+            setFoundMovies= { setFoundMovies }
+            requestSavedMovies= { handleSavedMovies }
+            setIsMenuPanel= { setIsMenuPanel }
+            requestEditUser= { requestEditUser }
+            requestSignout= { requestSignout }
+            errorRequest={ errorRequest }
+            setErrorRequest={ setErrorRequest }
+          />
+
+          <Route exact path="/">
+            <Main 
               setFoundMovies= { setFoundMovies }
-              setMovies={ setMyMovies }
-              requestSavedMovies={ requestSavedMovies }
-              requestSaveMovie={ requestSaveMovie }
-              errorLoading={ errorLoading }
-              searchMovies={ searchMovies }
-              getRenderMovies={ getRenderMovies }
-              handleClickMoreLoad={ handleClickMoreLoad }
-              isDisabledBtnMore={ isDisabledBtnMore }
-              requestDeleteMovie={ requestDeleteMovie }
-              setIsMenuPanel={ setIsMenuPanel }
+              requestSavedMovies= { handleSavedMovies }
+              isMenuPanel= { isMenuPanel }
+              setIsMenuPanel= { setIsMenuPanel }
             />
           </Route>
-          <Route path='/profile'>
-            <Profile 
-              setFoundMovies= { setFoundMovies }
-              requestSavedMovies= { requestSavedMovies }
-            />
-          </Route>
-          <Route path='/signup'>
-            <Register 
-              requestRegistration={ requestRegistration } 
-              errorRequest={ errorRequest }
-              setErrorRequest= { setErrorRequest }
-            />
-          </Route>
-          <Route path='/signin'>
-            <Login requestLogin={ requestLogin } 
-              errorRequest={ errorRequest }
-              setErrorRequest= { setErrorRequest }
-            />
-          </Route>
-          <Route path='*'>
+
+          <Route path="*">
             <ErrorMessage />
           </Route>
         </Switch>
+
         <Navigation 
           isOpen = { isMenuPanel }
           setFoundMovies= { setFoundMovies }
-          requestSavedMovies= { requestSavedMovies }
+          requestSavedMovies= { handleSavedMovies }
           isMenuPanel= { isMenuPanel }
           setIsMenuPanel= { setIsMenuPanel }
         />

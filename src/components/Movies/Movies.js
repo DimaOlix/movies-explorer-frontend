@@ -24,7 +24,7 @@ function Movies({
 }) {
 
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
-
+  
   function handleCheckFoundMovie() {
     if(!foundMovies.length && localStorage.getItem('searchWord')) {
       setNotFoundMovies(true);        
@@ -47,28 +47,30 @@ function Movies({
         />
       </Header>
       <main className="main">
-        <SearchForm 
-          onSubmit={ searchMovies } 
-          isLoading={ isLoading }
-          movies={ JSON.parse(localStorage.getItem('movies')) }
-          setMovies={ setFoundMovies } 
-        />
         { isLoading ? 
-        <Preloader  /> :
-        <><MoviesCardList
-            movies={ foundMovies }
-            myMovies={ myMovies }
-            requestSaveMovie={ requestSaveMovie }
-            notFoundMovies={ notFoundMovies }
-            errorLoading={ errorLoading }
-            getRenderMovies={ getRenderMovies }
-          />
-          <MoreLoader 
-            movies={ foundMovies }
-            isloadMore={ handleClickMoreLoad }
-            isDisabled={ isDisabledBtnMore }
-          />
-        </> }
+          <Preloader  /> :
+          <>
+            <SearchForm 
+              onSubmit={ searchMovies } 
+              isLoading={ isLoading }
+              movies={ JSON.parse(localStorage.getItem('movies')) }
+              setMovies={ setFoundMovies } 
+            />
+            <MoviesCardList
+              movies={ foundMovies }
+              myMovies={ myMovies }
+              requestSaveMovie={ requestSaveMovie }
+              notFoundMovies={ notFoundMovies }
+              errorLoading={ errorLoading }
+              getRenderMovies={ getRenderMovies }
+            />
+            <MoreLoader 
+              movies={ foundMovies }
+              isloadMore={ handleClickMoreLoad }
+              isDisabled={ isDisabledBtnMore }
+            />
+          </>
+        }
       </main>
       <Footer />
     </>

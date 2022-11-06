@@ -1,7 +1,7 @@
 import React from 'react';
-import { useForm } from '../../../hooks/useForm';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import './SearchForm.css'
+
 
 function SearchForm({ 
   onSubmit, 
@@ -9,24 +9,26 @@ function SearchForm({
   isLoading, 
   setMovies, 
 }) {
+
   const [ checked, setChecked ] = React.useState(JSON.parse(localStorage.getItem('checked')));
   const { 
     values, 
     handleChange,
     isValid,
     resetForm,
-  } = useFormWithValidation({ value: '' });
-
-  React.useEffect(() => {
-    resetForm({ 'search-form': localStorage.getItem('searchWord') });
-  }, [resetForm, checked])
+  } = useFormWithValidation({ 'search-form': '', 'form-checkbox': checked });
   
   function handlerSubmit(e) {
     e.preventDefault();
     if(values['search-form']) {
       localStorage.setItem('checked', checked);
       localStorage.setItem('searchWord', values['search-form']);
-      onSubmit(setMovies, movies);
+      if(movies === null) {
+        return onSubmit(setMovies, JSON.parse(localStorage.getItem('movies')));
+      }
+
+      onSubmit(setMovies, movies)
+      resetForm({ 'search-form': '' });
     }
   }
   

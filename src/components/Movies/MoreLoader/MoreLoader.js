@@ -1,6 +1,7 @@
 import React from 'react';
 import './MoreLoader.css'
 
+
 function MoreLoader({ isloadMore, isDisabled, movies }) {
   return (
     <div className={`more-loader ${ isDisabled(movies) ? 
