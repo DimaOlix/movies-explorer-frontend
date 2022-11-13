@@ -21,8 +21,6 @@ function SavedMovies({
   isDisabledBtnMore,
   requestDeleteMovie,
   setIsMenuPanel,
-  searchWord,
-  setSearchWord,
 }) {
   
   const isListSavedMovies = true;
@@ -57,8 +55,6 @@ function SavedMovies({
               isLoading={ isLoading }
               setMovies={ setSavedMovies }
               isListSavedMovies={ isListSavedMovies }
-              searchWord={ searchWord }
-              setSearchWord={ setSearchWord }
             />        
             <MoviesCardList 
               movies={ savedMovies }
@@ -69,7 +65,6 @@ function SavedMovies({
               errorLoading={ errorLoading }
               isListSavedMovies={ isListSavedMovies }
               requestDeleteMovie={ requestDeleteMovie }
-              searchWord={ searchWord }
             />
             <MoreLoader 
               isloadMore={ handleClickMoreLoad }

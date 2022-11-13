@@ -22,8 +22,6 @@ function Movies({
   handleClickMoreLoad,
   isDisabledBtnMore,
   setIsMenuPanel,
-  searchWord,
-  setSearchWord,
 }) {
 
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
@@ -57,8 +55,6 @@ function Movies({
               isLoading={ isLoading }
               movies={ JSON.parse(localStorage.getItem('movies')) }
               setMovies={ setFoundMovies }
-              searchWord={ searchWord }
-              setSearchWord={ setSearchWord }
             />
             <MoviesCardList
               movies={ foundMovies }
@@ -68,7 +64,6 @@ function Movies({
               notFoundMovies={ notFoundMovies }
               errorLoading={ errorLoading }
               getRenderMovies={ getRenderMovies }
-              searchWord={ searchWord }
             />
             <MoreLoader 
               movies={ foundMovies }

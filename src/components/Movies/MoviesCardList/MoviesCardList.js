@@ -12,7 +12,6 @@ function MoviesCardList({
   getRenderMovies,
   isListSavedMovies,
   requestDeleteMovie,
-  searchWord,
  }) {
 
   const [fewMovies, setFewMovies] = React.useState(false);

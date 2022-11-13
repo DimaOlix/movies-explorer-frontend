@@ -38,7 +38,6 @@ function App() {
   const detectWindowSize = () => {
     setTimeout(setWindowWidth(window.innerWidth), 2000);
   }
-  const [searchWord, setSearchWord] = React.useState('')
 
   React.useEffect(() => {
     window.addEventListener('resize', detectWindowSize)
@@ -155,10 +154,7 @@ function App() {
           sortingFoundMovies(elem, savedMoviesId, foundMovies, checked);
         }
       })
-    } else {
-      setMyMovies(movies);
     }
-
     setMyMovies(foundMovies);
   }
 
@@ -271,7 +267,7 @@ function App() {
       nameRU,
       nameEN,
     })
-    .then((res) => {
+    .then(() => {
       setFoundMovies((state) => {
         return state.map(el => {
           if (el.id === movie.id) {
@@ -305,8 +301,6 @@ function App() {
       })
       .catch((err) => console.log(err))
   }
-
-
 
   return (
     <CurrentUserContext.Provider value={ [ currentUser, setCurrentUser ] }>    
@@ -352,8 +346,6 @@ function App() {
             requestSaveMovie={ requestSaveMovie }
             requestDeleteMovie={ requestDeleteMovie }
             setIsMenuPanel={ setIsMenuPanel }
-            searchWord={ searchWord }
-            setSearchWord={ setSearchWord }
           />
 
           <ProtectedRoute 
@@ -372,8 +364,6 @@ function App() {
             isDisabledBtnMore={ isDisabledBtnMore }
             requestDeleteMovie={ requestDeleteMovie }
             setIsMenuPanel={ setIsMenuPanel }
-            searchWord={ searchWord }
-            setSearchWord={ setSearchWord }
           />
 
           <ProtectedRoute 
