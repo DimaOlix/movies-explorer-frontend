@@ -1,3 +1,5 @@
+@import url(./__list/search-form__list.css);
+@import url(./__list/_few-cards/search-form__list_few-cards.css);
 @import url(./__input/.search-form__input.css);
 @import url(./__button/search-form__button.css);
 @import url(./__checkbox/search-form__checkbox.css);

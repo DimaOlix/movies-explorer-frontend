@@ -2,15 +2,9 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 
-function HeaderContent({ setFoundMovies, requestSavedMovies, setIsMenuPanel }) {
-
-  function handleClickMovies() {
-    localStorage.setItem('searchWord', '');
-    setFoundMovies([]);
-  }
+function HeaderContent({ setIsMenuPanel, requestSavedMovies }) {
 
   function handleClickSavedMovies() {
-    localStorage.setItem('searchWord', '');
     requestSavedMovies();
   }
   
@@ -21,8 +15,7 @@ function HeaderContent({ setFoundMovies, requestSavedMovies, setIsMenuPanel }) {
           <NavLink 
             className="header__select-button"
             to="/movies"
-            activeClassName="header__select-button_type_active"
-            onClick={ handleClickMovies }>
+            activeClassName="header__select-button_type_active">
             Фильмы
           </NavLink>
         </li>

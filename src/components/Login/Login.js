@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import regularExpressionForEmail from '../../utils/regularExpressionForEmail';
 import Preloader from '../Preloader/Preloader';
 import WindowWithForm from '../WindowWithForm/WindowWithForm';
 
@@ -20,7 +21,7 @@ function Login({ requestLogin, errorRequest, setErrorRequest, isLoading }) {
 
   function handleLogin(e) {
     e.preventDefault();
-    setTimeout(requestLogin(values['email'], values['password']), 2000);
+    requestLogin(values['email'], values['password']);
     resetForm({ 'email': '', 'password': '' });
   }
   
@@ -49,6 +50,7 @@ function Login({ requestLogin, errorRequest, setErrorRequest, isLoading }) {
             name="email"
             value={ values['email'] }
             onChange={ handleChange }
+            pattern={ regularExpressionForEmail }
             placeholder="E-mail"
             minLength="2"
             maxLength="30"

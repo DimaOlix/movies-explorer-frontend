@@ -1,11 +1,12 @@
 import React from 'react';
-import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import regularExpressionForName from '../../utils/regularExpressionForName';
 import Header from '../Header/Header';
 import HeaderContent from '../HeaderContent/HeaderContent';
 import './Profile.css';
 import Preloader from '../Preloader/Preloader';
+import regularExpressionForEmail from '../../utils/regularExpressionForEmail';
 
 
 function Profile({
@@ -18,23 +19,28 @@ function Profile({
   errorRequest,
   setErrorRequest,
 }) {
-
+  
+  const [ currentUser, ] = React.useContext(CurrentUserContext);
   const [ onRegister, setOnRegister ] = React.useState(false);
   const { 
-    values, 
+    values,
+    setValues,
     handleChange, 
     errors, 
     isValid, 
     resetForm,
-  } = useFormWithValidation({ 'name': '', 'email': '' });
-  const [ currentUser, ] = React.useContext(CurrentUserContext);
+  } = useFormWithValidation({ name: currentUser.name, email: currentUser.email });
 
   React.useEffect(() => {
     setErrorRequest('');
   }, [])
 
+  React.useEffect(() => {
+    setValues({ name: currentUser.name, email: currentUser.email });
+  }, [currentUser])
+
   function checkIdenticalData() {
-    return currentUser.name === values['name'] && currentUser.email === values['email'];
+    return currentUser.name === values.name && currentUser.email === values.email;
   }
 
   function handleClickRegister () {
@@ -48,8 +54,8 @@ function Profile({
 
   function handleSubmit(e) {
     e.preventDefault();
-    requestEditUser(values['name'], values['email']);
-    resetForm({ 'name': '', 'email': '' });
+    requestEditUser(values.name, values.email);
+    resetForm({ name: '', email: '' });
   }
 
   return (
@@ -80,10 +86,10 @@ function Profile({
                 type="text"
                 id="name-input"
                 name="name"
-                value={ values['name'] }
+                value={ values.name }
                 onChange={ handleChange }
                 pattern={ regularExpressionForName }
-                placeholder={ currentUser.name }
+                // placeholder={ currentUser.name }
                 minLength="2"
                 maxLength="30"
                 required
@@ -102,9 +108,10 @@ function Profile({
                 type="email"
                 id="email-input"
                 name="email"
-                value={ values['email'] }
+                value={ values.email }
                 onChange={ handleChange }
-                placeholder={ currentUser.email }
+                pattern={ regularExpressionForEmail }
+                // placeholder={ currentUser.email }
                 minLength="2"
                 maxLength="30"
                 required

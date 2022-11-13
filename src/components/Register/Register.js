@@ -3,6 +3,7 @@ import WindowWithForm from '../WindowWithForm/WindowWithForm';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import regularExpressionForName from '../../utils/regularExpressionForName';
 import Preloader from '../Preloader/Preloader';
+import regularExpressionForEmail from '../../utils/regularExpressionForEmail';
 
 
 function Register({ requestRegistration, errorRequest, setErrorRequest, isLoading }) {
@@ -52,7 +53,6 @@ function Register({ requestRegistration, errorRequest, setErrorRequest, isLoadin
             value={ values['name'] }
             onChange={ handleChange }
             pattern={ regularExpressionForName }
-            title="Можно использовать: латиницу, кирилицу, пробел и '-'"
             placeholder="Имя"
             minLength="2"
             maxLength="30"
@@ -74,10 +74,11 @@ function Register({ requestRegistration, errorRequest, setErrorRequest, isLoadin
             name="email"
             value={ values['email'] }
             onChange={ handleChange }
+            pattern={ regularExpressionForEmail }
             placeholder="E-mail"
             minLength="2"
             maxLength="30"
-            required 
+            required            
           />
           <span
             className="form__input-error form__input-error_position_middle"

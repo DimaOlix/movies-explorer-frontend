@@ -1,5 +1,5 @@
 import React from 'react';
-import './MoviesCardList.css'
+import '../SearchForm/SearchForm.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
@@ -14,8 +14,22 @@ function MoviesCardList({
   requestDeleteMovie,
  }) {
 
+  const [fewMovies, setFewMovies] = React.useState(false);
+
+  React.useEffect(() => {
+    checkQuantityMovies();
+  }, [movies])
+
+  function checkQuantityMovies() {
+    if(movies.length === 1) {
+      setFewMovies(true);
+    } else {
+      setFewMovies(false);
+    }
+  }
+
   return (
-    <ul className='search-form__list'>
+    <ul className={`search-form__list ${ fewMovies ? 'search-form__list_few-cards' : '' }`}>
       { 
         errorLoading ? 
         <p className='search-form__message'>
@@ -25,9 +39,9 @@ function MoviesCardList({
         '' 
       }
       { 
-        notFoundMovies && myMovies.length !== 0 ? 
+        notFoundMovies && myMovies.length === 0 ? 
         <p className='search-form__message'>
-          Видео не найдено
+          Ничего не найдено
         </p> : ''
       }
       {

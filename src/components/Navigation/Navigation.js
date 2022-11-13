@@ -6,19 +6,15 @@ import './Navigation.css'
 function Navigation({ 
   isMenuPanel,
   setIsMenuPanel,
-  setFoundMovies,
   requestSavedMovies,
 }) {
 
   function handleClickMovies() {
     handleClosePanel();
-    localStorage.setItem('searchWord', '');
-    setFoundMovies([]);
   }
 
   function handleClickSavedMovies() {
     handleClosePanel();
-    localStorage.setItem('searchWord', '');
     requestSavedMovies();
   }
 

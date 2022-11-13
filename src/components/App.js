@@ -13,6 +13,13 @@ import ErrorMessage from './ErrorMessage/ErrorMessage';
 import MoviesApi from '../utils/MoviesApi';
 import MainApi from '../utils/MainApi';
 import ProtectedRoute from './ProtectedRoute';
+import { 
+  DurationOfShortMovies, 
+  QuantityCardsFrom320px, 
+  QuantityCardsFrom768px, 
+  QuantityCardsFrom1280px,
+  UrlServer
+} from '../utils/ConstantsUsed';
 
 
 function App() {
@@ -48,8 +55,9 @@ function App() {
       })
       .catch((err) => {
         if(err.message === 'Отсутствует токен'){
-          localStorage.setItem('loggedIn', false);
+          localStorage.clear();
           setLoggedIn(false);
+          history.push('/');
         }
         console.log(err);
       })
@@ -57,11 +65,22 @@ function App() {
   }, [loggedIn])
 
   React.useEffect(() => {
-    if(loggedIn)
-    requestLoadMovies();
-    searchMovies(setFoundMovies, JSON.parse(localStorage.getItem('movies')));
-    handleSavedMovies();
+    if(loggedIn) {
+      requestLoadMovies();
+      searchMovies(setFoundMovies, 
+        JSON.parse(localStorage.getItem('movies')), 
+        localStorage.getItem('searchWord')
+      );
+      handleSavedMovies();
+    }
   }, [])
+
+  React.useEffect(() => {
+    searchMovies(setFoundMovies, 
+      JSON.parse(localStorage.getItem('movies')), 
+      localStorage.getItem('searchWord')
+    );
+  }, [savedMovies])
 
   async function requestLoadMovies() {
     if(!localStorage.getItem('movies')) {
@@ -75,14 +94,14 @@ function App() {
     }
   }
 
-  function handleSavedMovies() {
+  function handleSavedMovies(searchWord) {
     getSavedMovies()
     .then((res) => {
       setMyMovies(res); 
       return res;
     })
     .then((res) => {
-      if(!localStorage.getItem('searchWord')) {
+      if(!searchWord) {
         setSavedMovies(res);
       } else {
         searchMovies(setSavedMovies, res);
@@ -95,13 +114,11 @@ function App() {
     return MainApi.getSavedMovies();
   }
 
-  function sortingFoundMovies(movie, savedMoviesId, foundMovies) {
-    const valueCheckbox = localStorage.getItem('checked');
-
-    if(valueCheckbox === 'true' && movie.duration < 40) {
+  function sortingFoundMovies(movie, savedMoviesId, foundMovies, checked) {
+    if((checked === 'true' || checked) && movie.duration < DurationOfShortMovies) {
 
       checkingSavedMovies(movie, savedMoviesId, foundMovies);
-    } else if(valueCheckbox !== 'true' && movie.duration >= 40) {
+    } else if(checked !== 'true' && !checked) {
 
       checkingSavedMovies(movie, savedMoviesId, foundMovies);
     }
@@ -115,10 +132,14 @@ function App() {
     foundMovies.push(movie);
   }
 
-  async function searchMovies(setMyMovies, movies) {
+  async function searchMovies(
+    setMyMovies, 
+    movies, 
+    searchWord, 
+    checked = JSON.parse(localStorage.getItem('checked'))
+  ) {
     const savedMoviesId = [];
     const foundMovies = [];
-    const searchWord = localStorage.getItem('searchWord');
 
     await getSavedMovies()
       .then((res) => {
@@ -126,12 +147,11 @@ function App() {
           savedMoviesId.push(el.movieId);
         })
       })
-
-    if(searchWord) {
+    if(searchWord || searchWord === '') {
       movies.forEach((elem) => {
         if(elem.nameRU.toLowerCase().includes(searchWord.toLowerCase()) || 
         elem.nameEN.toLowerCase().includes(searchWord.toLowerCase())) {
-          sortingFoundMovies(elem, savedMoviesId, foundMovies);
+          sortingFoundMovies(elem, savedMoviesId, foundMovies, checked);
         }
       })
     } else {
@@ -147,21 +167,21 @@ function App() {
 
   function isDisabledBtnMore(movies) {
     if(windowWidth > 768) {
-      return countMovieCard * 12 >= movies.length;
+      return countMovieCard * QuantityCardsFrom1280px >= movies.length;
     } else if(windowWidth > 320 && windowWidth <= 768) {
-      return countMovieCard * 8 >= movies.length;        
+      return countMovieCard * QuantityCardsFrom768px >= movies.length;        
     } else {
-      return countMovieCard * 5 >= movies.length;
+      return countMovieCard * QuantityCardsFrom320px >= movies.length;
     }
   }
 
   function getRenderMovies(movies) {
     if(windowWidth > 768) {
-      return [ ...movies.slice(0, countMovieCard * 12)];
+      return [ ...movies.slice(0, countMovieCard * QuantityCardsFrom1280px)];
     } else if(windowWidth > 320 && windowWidth <= 768) {
-      return [ ...movies.slice(0, countMovieCard * 8)];
+      return [ ...movies.slice(0, countMovieCard * QuantityCardsFrom768px)];
     } else {
-      return [ ...movies.slice(0, countMovieCard * 5)];
+      return [ ...movies.slice(0, countMovieCard * QuantityCardsFrom320px)];
     }
   }
 
@@ -169,7 +189,7 @@ function App() {
     setIsLoading(true);
     MainApi.creatUser(name, email, password)
       .then(() => {
-        history.push('/movies');
+        requestLogin(email, password);
       })
       .catch((err) => {
         setErrorRequest(err.message);
@@ -223,8 +243,8 @@ function App() {
   }
 
   function requestSaveMovie(movie) {
-    const image = `https://api.nomoreparties.co${movie.image.url}`
-    const thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
+    const image = `${UrlServer}${movie.image.url}`
+    const thumbnail = `${UrlServer}${movie.image.formats.thumbnail.url}`;
     const { 
       country,
       director,
@@ -271,7 +291,8 @@ function App() {
     }) 
   }
 
-  function requestDeleteMovie(movieId) {
+  function requestDeleteMovie(movie) {
+    const movieId = movie.id ? movie.id : movie.movieId;
     MainApi.deleteMovie(movieId)
       .then((res) => {
         setSavedMovies((movies) => {
@@ -328,6 +349,7 @@ function App() {
             handleClickMoreLoad={ handleClickMoreLoad }
             isDisabledBtnMore={ isDisabledBtnMore }
             requestSaveMovie={ requestSaveMovie }
+            requestDeleteMovie={ requestDeleteMovie }
             setIsMenuPanel={ setIsMenuPanel }
           />
 
@@ -339,7 +361,6 @@ function App() {
             myMovies={ myMovies }
             savedMovies={ savedMovies }
             setSavedMovies={ setSavedMovies }
-            setFoundMovies= { setFoundMovies }
             requestSaveMovie={ requestSaveMovie }
             errorLoading={ errorLoading }
             searchMovies={ searchMovies }
@@ -380,7 +401,6 @@ function App() {
 
         <Navigation 
           isOpen = { isMenuPanel }
-          setFoundMovies= { setFoundMovies }
           requestSavedMovies= { handleSavedMovies }
           isMenuPanel= { isMenuPanel }
           setIsMenuPanel= { setIsMenuPanel }

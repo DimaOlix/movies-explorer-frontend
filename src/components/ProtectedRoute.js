@@ -6,7 +6,7 @@ const ProtectedRoute = ({ component: Component, path, ...props }) => {
   return (
     <Route>
       {() =>
-        props.loggedIn ? <Component path={path} {...props} /> : <Redirect to="./signin" />
+        props.loggedIn ? <Component path={path} {...props} /> : <Redirect to="./" />
       }
     </Route>
   );

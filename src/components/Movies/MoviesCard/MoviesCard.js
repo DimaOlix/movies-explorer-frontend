@@ -21,7 +21,7 @@ function MoviesCard({
   function handleDeleteMovie(e) {
     if(e.target === e.currentTarget) {
       e.preventDefault();
-      requestDeleteMovie(movie._id);
+      requestDeleteMovie(movie);
     }
   }
 
@@ -52,6 +52,7 @@ function MoviesCard({
             'movies-card__icon_hidden' :
             '' }` }
           name="button-saved"
+          onClick={ handleDeleteMovie }
         />
         <button
           type="button"

@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-export function useFormWithValidation(value) {
-  const [values, setValues] = React.useState(value);
+export function useFormWithValidation(inputValues) {
+  const [values, setValues] = React.useState(inputValues);
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
@@ -13,8 +13,10 @@ export function useFormWithValidation(value) {
 
     setValues({ ...values, [name]: value });
     setErrors((errors) => {
-      if(target.validity.patternMismatch) {
+      if(target.validity.patternMismatch && name === 'name') {
         target.setCustomValidity('В поле "Имя" можно вводить только: латиницу, кирилицу, пробел и "-"');
+      } else if(target.validity.patternMismatch && name === 'email') {
+        target.setCustomValidity('Введенные данные не соответствуют стандарту email адресов');
       } else {
         target.setCustomValidity('');
       }
@@ -32,5 +34,5 @@ export function useFormWithValidation(value) {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm };
+  return { values, setValues, handleChange, errors, isValid, resetForm };
 }

@@ -7,33 +7,41 @@ function SearchForm({
   onSubmit, 
   movies, 
   isLoading, 
-  setMovies, 
+  setMovies,
+  searchWord,
+  isListSavedMovies,
 }) {
 
-  const [ checked, setChecked ] = React.useState(JSON.parse(localStorage.getItem('checked')));
+  const [ checked, setChecked ] = React.useState(isListSavedMovies ? false : JSON.parse(localStorage.getItem('checked')));
   const { 
     values, 
     handleChange,
     isValid,
-    resetForm,
-  } = useFormWithValidation({ 'search-form': '', 'form-checkbox': checked });
-  
+  } = useFormWithValidation({ 'search-form': searchWord, 'form-checkbox': checked });
+ 
   function handlerSubmit(e) {
     e.preventDefault();
-    if(values['search-form']) {
-      localStorage.setItem('checked', checked);
+    if(values['search-form'] && !isListSavedMovies) {
       localStorage.setItem('searchWord', values['search-form']);
       if(movies === null) {
-        return onSubmit(setMovies, JSON.parse(localStorage.getItem('movies')));
-      }
-
-      onSubmit(setMovies, movies)
-      resetForm({ 'search-form': '' });
+        return onSubmit(setMovies, JSON.parse(localStorage.getItem('movies')), values['search-form']);
+      }      
     }
+    onSubmit(setMovies, movies, values['search-form']);
   }
   
   function handlerCheckbox() {
-    setChecked(!checked);
+    if(!isListSavedMovies) {
+      setChecked((check) => {
+        localStorage.setItem('checked', !check);
+        return !check;
+      });
+    } else {
+      setChecked((check) => {
+          return !check;
+        });
+    }
+    onSubmit(setMovies, movies, values['search-form'], !checked);
   }
   
   return (

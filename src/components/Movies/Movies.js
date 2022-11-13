@@ -14,6 +14,7 @@ function Movies({
   setFoundMovies,
   requestSavedMovies,
   requestSaveMovie,
+  requestDeleteMovie,
   isLoading,
   errorLoading,
   searchMovies,
@@ -41,7 +42,6 @@ function Movies({
     <>
       <Header>
         <HeaderContent
-          setFoundMovies= { setFoundMovies }
           requestSavedMovies= { requestSavedMovies }
           setIsMenuPanel= { setIsMenuPanel }
         />
@@ -54,12 +54,14 @@ function Movies({
               onSubmit={ searchMovies } 
               isLoading={ isLoading }
               movies={ JSON.parse(localStorage.getItem('movies')) }
-              setMovies={ setFoundMovies } 
+              setMovies={ setFoundMovies }
+              searchWord={ localStorage.getItem('searchWord') }
             />
             <MoviesCardList
               movies={ foundMovies }
               myMovies={ myMovies }
               requestSaveMovie={ requestSaveMovie }
+              requestDeleteMovie={ requestDeleteMovie }
               notFoundMovies={ notFoundMovies }
               errorLoading={ errorLoading }
               getRenderMovies={ getRenderMovies }

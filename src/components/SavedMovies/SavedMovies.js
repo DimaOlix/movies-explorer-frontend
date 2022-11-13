@@ -13,7 +13,6 @@ function SavedMovies({
   myMovies,
   savedMovies,
   setSavedMovies,
-  setFoundMovies,
   requestSaveMovie,
   errorLoading,
   searchMovies,
@@ -43,8 +42,6 @@ function SavedMovies({
     <>
       <Header>
         <HeaderContent 
-          setFoundMovies= { setFoundMovies }
-          setSavedMovies= { setSavedMovies }
           setIsMenuPanel= { setIsMenuPanel }
         />
       </Header>
@@ -57,6 +54,8 @@ function SavedMovies({
               movies={ myMovies } 
               isLoading={ isLoading }
               setMovies={ setSavedMovies }
+              isListSavedMovies={ isListSavedMovies }
+              searchWord={ '' } 
             />        
             <MoviesCardList 
               movies={ savedMovies }
