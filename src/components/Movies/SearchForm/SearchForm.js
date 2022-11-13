@@ -8,8 +8,9 @@ function SearchForm({
   movies, 
   isLoading, 
   setMovies,
+  isListSavedMovies,  
   searchWord,
-  isListSavedMovies,
+  setSearchWord,
 }) {
 
   const [ checked, setChecked ] = React.useState(isListSavedMovies ? false : JSON.parse(localStorage.getItem('checked')));
@@ -17,7 +18,15 @@ function SearchForm({
     values, 
     handleChange,
     isValid,
-  } = useFormWithValidation({ 'search-form': searchWord, 'form-checkbox': checked });
+  } = useFormWithValidation({ 'search-form': isListSavedMovies ? '' : localStorage.getItem('searchWord'), 'form-checkbox': checked });
+
+  React.useEffect(() => {
+    if(!isListSavedMovies) {
+      setSearchWord(localStorage.getItem('searchWord'));
+    } else {
+      setSearchWord('');
+    }
+  }, [])
  
   function handlerSubmit(e) {
     e.preventDefault();

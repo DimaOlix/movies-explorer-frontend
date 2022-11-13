@@ -38,6 +38,7 @@ function App() {
   const detectWindowSize = () => {
     setTimeout(setWindowWidth(window.innerWidth), 2000);
   }
+  const [searchWord, setSearchWord] = React.useState('')
 
   React.useEffect(() => {
     window.addEventListener('resize', detectWindowSize)
@@ -351,6 +352,8 @@ function App() {
             requestSaveMovie={ requestSaveMovie }
             requestDeleteMovie={ requestDeleteMovie }
             setIsMenuPanel={ setIsMenuPanel }
+            searchWord={ searchWord }
+            setSearchWord={ setSearchWord }
           />
 
           <ProtectedRoute 
@@ -369,6 +372,8 @@ function App() {
             isDisabledBtnMore={ isDisabledBtnMore }
             requestDeleteMovie={ requestDeleteMovie }
             setIsMenuPanel={ setIsMenuPanel }
+            searchWord={ searchWord }
+            setSearchWord={ setSearchWord }
           />
 
           <ProtectedRoute 

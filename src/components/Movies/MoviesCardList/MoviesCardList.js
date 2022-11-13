@@ -12,6 +12,7 @@ function MoviesCardList({
   getRenderMovies,
   isListSavedMovies,
   requestDeleteMovie,
+  searchWord,
  }) {
 
   const [fewMovies, setFewMovies] = React.useState(false);
@@ -39,10 +40,12 @@ function MoviesCardList({
         '' 
       }
       { 
-        notFoundMovies && myMovies.length === 0 ? 
+        (notFoundMovies && movies.length === 0 && localStorage.getItem('searchWord') && !isListSavedMovies) || 
+        (isListSavedMovies && notFoundMovies && movies.length === 0 && myMovies.length !== 0) ? 
         <p className='search-form__message'>
-          Ничего не найдено
-        </p> : ''
+          Ничего не найдено.
+        </p> : 
+        ''
       }
       {
         getRenderMovies(movies).map((movie, index) => (

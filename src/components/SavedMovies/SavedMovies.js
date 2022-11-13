@@ -21,13 +21,15 @@ function SavedMovies({
   isDisabledBtnMore,
   requestDeleteMovie,
   setIsMenuPanel,
+  searchWord,
+  setSearchWord,
 }) {
   
   const isListSavedMovies = true;
   const [ notFoundMovies, setNotFoundMovies ] = React.useState(false);
 
   function handleCheckFoundMovie() {
-    if(!savedMovies.length && localStorage.getItem('searchWord')) {
+    if(!savedMovies.length) {
       setNotFoundMovies(true);        
     } else {
       setNotFoundMovies(false);        
@@ -36,7 +38,7 @@ function SavedMovies({
 
   React.useEffect(() => {
     handleCheckFoundMovie()
-  },[savedMovies])
+  },[searchMovies])
 
   return (
     <>
@@ -55,7 +57,8 @@ function SavedMovies({
               isLoading={ isLoading }
               setMovies={ setSavedMovies }
               isListSavedMovies={ isListSavedMovies }
-              searchWord={ '' } 
+              searchWord={ searchWord }
+              setSearchWord={ setSearchWord }
             />        
             <MoviesCardList 
               movies={ savedMovies }
@@ -66,6 +69,7 @@ function SavedMovies({
               errorLoading={ errorLoading }
               isListSavedMovies={ isListSavedMovies }
               requestDeleteMovie={ requestDeleteMovie }
+              searchWord={ searchWord }
             />
             <MoreLoader 
               isloadMore={ handleClickMoreLoad }

@@ -130,4 +130,3 @@ class MainApi {
 }
 
 export default new MainApi('https://api.dolih-diplom.student.nomoredomains.icu');
-
