@@ -1,0 +1,20 @@
+.header__account-button {
+  width: 100px;
+  height: 32px;
+  margin-top: 6px;
+  justify-self: end;
+  background: transparent url(../../../images/profile.svg);
+  background-position: center;
+  border: none;
+  cursor: pointer;
+}
+
+.header__account-button:hover {
+  opacity: .7;
+}
+
+@media all and (max-width: 768px) {
+  .header__account-button {
+    display: none;
+  }
+}

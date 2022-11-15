@@ -1,0 +1,13 @@
+.header__select-button {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  opacity: .8;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.header__select-button:hover {
+  opacity: .5;
+}

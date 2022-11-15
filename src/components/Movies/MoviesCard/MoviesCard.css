@@ -1,0 +1,13 @@
+@import url(./__element/movies-card__element.css);
+@import url(./__title/movies-card__title.css);
+@import url(./__image/movies-card__image.css);
+@import url(./__duration/movies-card__duration.css);
+@import url(./__icon/movies-card__icon.css);
+@import url(./__icon/_hidden/movies-card__icon_hidden.css);
+@import url(./__icon/_name/movies-card__icon_name_save.css);
+@import url(./__icon/_name/movies-card__icon_name_saved.css);
+@import url(./__icon/_name/movies-card__icon_name_delete.css);
+
+.movies-card {
+  list-style-type: none;
+}

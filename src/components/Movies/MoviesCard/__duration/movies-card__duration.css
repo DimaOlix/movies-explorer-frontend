@@ -1,0 +1,23 @@
+.movies-card__duration {
+  grid-area: duration;
+  justify-self: end;
+  max-width: 52px;
+  max-height: 18px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 10px;
+  padding: 3px 4px;
+  margin-right: 14px;
+  margin-left: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(47, 47, 47);
+  border-radius: 3px;
+}
+
+@media all and (max-width: 400px) {
+  .movies-card__duration {
+    margin-right: 0;
+  }
+}

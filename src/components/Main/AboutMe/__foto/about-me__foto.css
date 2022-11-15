@@ -1,0 +1,16 @@
+.about-me__foto {
+  width: 270px;
+  height: 327px;
+  object-fit: cover;
+  object-position: 0 -95px;
+  grid-area: foto;
+  justify-self: end;
+  border-radius: 10px;
+}
+
+@media all and (max-width: 700px) {
+  .about-me__foto {
+    justify-self: center;
+    
+  }
+}

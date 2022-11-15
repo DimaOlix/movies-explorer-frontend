@@ -1,0 +1,9 @@
+.movies-card__icon_name_save {
+  width: 72px;
+  height: 21px;
+  background: transparent url(../../../../../images/save3d.svg);
+}
+
+.movies-card__icon_name_save.movies-card__icon:hover {
+  opacity: .7;
+}

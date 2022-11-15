@@ -1,0 +1,13 @@
+.navigation__button-account {
+  width: 120px;
+  height: 32px;
+  margin-bottom: 60px;
+  border: none;
+  background: transparent url(../../../images/profile.svg);
+  background-size: cover;
+  background-position: center;
+}
+
+.navigation__button-account:hover {
+  opacity: .7;
+}
