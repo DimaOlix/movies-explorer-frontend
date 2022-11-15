@@ -30,7 +30,7 @@ function SearchForm({
         return onSubmit(setMovies, JSON.parse(localStorage.getItem('movies')), values['search-form']);
       }      
     }
-    onSubmit(setMovies, movies, values['search-form']);
+    onSubmit(setMovies, movies, values['search-form'], checked);
   }
   
   function handlerCheckbox() {

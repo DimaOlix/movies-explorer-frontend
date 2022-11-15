@@ -12,9 +12,8 @@ function WindowWithForm({
   name,
   onSubmit,
   isValid,
-  resetForm,
-  onRequest,
   errorRequest,
+  isLoading,
 }) {
 
 
@@ -42,7 +41,7 @@ function WindowWithForm({
           className="form__button"
           type="submit" 
           name={`${name}-button`}
-          disabled={ !isValid }>
+          disabled={ !isValid || isLoading }>
           { textButton }
         </button>        
       <p className="window-form__text"> 

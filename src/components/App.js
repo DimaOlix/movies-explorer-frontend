@@ -40,21 +40,13 @@ function App() {
   }
 
   React.useEffect(() => {
-    window.addEventListener('resize', detectWindowSize)
-
-    return () => {
-      window.removeEventListener('resize', detectWindowSize)
-    }
-  }, [windowWidth])
-
-  React.useEffect(() => {
     if (loggedIn) {
       MainApi.getUser()
       .then((res) => {
         setCurrentUser(res);
       })
       .catch((err) => {
-        if(err.message === 'Отсутствует токен'){
+        if(err.message === 'Отсутствует токен' || err.message === 'Некорректный токен') {
           localStorage.clear();
           setLoggedIn(false);
           history.push('/');
@@ -65,8 +57,7 @@ function App() {
   }, [loggedIn])
 
   React.useEffect(() => {
-    if(loggedIn) {
-      requestLoadMovies();
+    if (loggedIn) {
       searchMovies(setFoundMovies, 
         JSON.parse(localStorage.getItem('movies')), 
         localStorage.getItem('searchWord')
@@ -113,6 +104,14 @@ function App() {
   function getSavedMovies() {
     return MainApi.getSavedMovies();
   }
+
+  React.useEffect(() => {
+    window.addEventListener('resize', detectWindowSize)
+
+    return () => {
+      window.removeEventListener('resize', detectWindowSize)
+    }
+  }, [windowWidth])
 
   function sortingFoundMovies(movie, savedMoviesId, foundMovies, checked) {
     if((checked === 'true' || checked) && movie.duration < DurationOfShortMovies) {
@@ -182,11 +181,12 @@ function App() {
     }
   }
 
-  function requestRegistration(name, email, password) {
+  function requestRegistration(name, email, password, resetForm) {
     setIsLoading(true);
     MainApi.creatUser(name, email, password)
       .then(() => {
-        requestLogin(email, password);
+        requestLogin(email, password, resetForm);
+        resetForm({ 'name': '', 'email':'', 'password': '' });
       })
       .catch((err) => {
         setErrorRequest(err.message);
@@ -194,21 +194,22 @@ function App() {
       .finally(() => setIsLoading(false))
   }
 
-  function requestLogin(email, password) {
+  function requestLogin(email, password, resetForm) {
     setIsLoading(true);
     return MainApi.login(email, password)
-    .then(() => {
-      setLoggedIn(() => {
-        localStorage.setItem('loggedIn', true);
-        return true;
-      });
-      requestLoadMovies();
-      history.push('/movies');
-    })
-    .catch((err) => {
-      setErrorRequest(err.message);
-    })
-    .finally(() => setIsLoading(false))
+      .then(() => {
+        setLoggedIn(() => {
+          localStorage.setItem('loggedIn', true);
+          return true;
+        });
+        requestLoadMovies();
+        history.push('/movies');
+        resetForm({ 'email': '', 'password': '' });
+      })
+      .catch((err) => {
+        setErrorRequest(err.message);
+      })
+      .finally(() => setIsLoading(false))
   }
 
   function requestEditUser(name, email) {

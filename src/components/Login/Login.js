@@ -21,8 +21,7 @@ function Login({ requestLogin, errorRequest, setErrorRequest, isLoading }) {
 
   function handleLogin(e) {
     e.preventDefault();
-    requestLogin(values['email'], values['password']);
-    resetForm({ 'email': '', 'password': '' });
+    requestLogin(values['email'], values['password'], resetForm);
   }
   
   return (
@@ -39,7 +38,8 @@ function Login({ requestLogin, errorRequest, setErrorRequest, isLoading }) {
           name='login'
           onSubmit={ handleLogin }
           isValid={ isValid }
-          errorRequest={ errorRequest }>
+          errorRequest={ errorRequest }
+          isLoading={ isLoading }>
           <label className="form__label" htmlFor="email-input">
             E-mail
           </label>
@@ -51,6 +51,7 @@ function Login({ requestLogin, errorRequest, setErrorRequest, isLoading }) {
             value={ values['email'] }
             onChange={ handleChange }
             pattern={ regularExpressionForEmail }
+            disabled={ isLoading }
             placeholder="E-mail"
             minLength="2"
             maxLength="30"
@@ -72,6 +73,7 @@ function Login({ requestLogin, errorRequest, setErrorRequest, isLoading }) {
             name="password"
             value={ values['password'] }
             onChange={ handleChange }
+            disabled={ isLoading }
             placeholder="password"
             minLength="2"
             maxLength="30"

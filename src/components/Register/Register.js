@@ -22,8 +22,7 @@ function Register({ requestRegistration, errorRequest, setErrorRequest, isLoadin
 
   function handleRegistration(e) {
     e.preventDefault();
-    requestRegistration(values['name'], values['email'], values['password']);
-    resetForm({ 'name': '', 'email':'', 'password': '' });
+    requestRegistration(values['name'], values['email'], values['password'], resetForm);
   }
   
   return (
@@ -40,7 +39,8 @@ function Register({ requestRegistration, errorRequest, setErrorRequest, isLoadin
           name='register'
           isValid={ isValid }
           onSubmit={ handleRegistration }
-          errorRequest={ errorRequest }>
+          errorRequest={ errorRequest }
+          isLoading={ isLoading }>
 
           <label className="form__label" htmlFor="name-input">
             Имя
@@ -53,6 +53,7 @@ function Register({ requestRegistration, errorRequest, setErrorRequest, isLoadin
             value={ values['name'] }
             onChange={ handleChange }
             pattern={ regularExpressionForName }
+            disabled={ isLoading }
             placeholder="Имя"
             minLength="2"
             maxLength="30"
@@ -75,6 +76,7 @@ function Register({ requestRegistration, errorRequest, setErrorRequest, isLoadin
             value={ values['email'] }
             onChange={ handleChange }
             pattern={ regularExpressionForEmail }
+            disabled={ isLoading }
             placeholder="E-mail"
             minLength="2"
             maxLength="30"
@@ -96,6 +98,7 @@ function Register({ requestRegistration, errorRequest, setErrorRequest, isLoadin
             name="password"
             value={ values['password'] }
             onChange={ handleChange }
+            disabled={ isLoading }
             placeholder="Пароль"
             minLength="2"
             maxLength="30"
