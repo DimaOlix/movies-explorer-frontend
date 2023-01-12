@@ -1,0 +1,23 @@
+@import url(./__conteiner/techs__conteiner.css);
+@import url(./__title/techs__title.css);
+@import url(./__subtitle/techs__subtitle.css);
+@import url(./__list/techs__list.css);
+@import url(./__element/techs__element.css);
+
+.techs {
+  padding: 40px 70px 100px;
+  background-color: rgb(39, 39, 39);
+}
+
+@media all and (max-width: 768px) {
+  .techs {
+    padding: 90px 50px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .techs {
+    padding: 70px 18px;
+    background-color: rgb(32, 32, 32);
+  }
+}

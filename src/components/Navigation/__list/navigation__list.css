@@ -1,0 +1,11 @@
+.navigation__list {
+  height: 120px;
+  justify-self: start;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}

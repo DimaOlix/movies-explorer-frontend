@@ -1,0 +1,32 @@
+@import url(./__logo/header__logo.css);
+@import url(./__button-signin/header__button-signin.css);
+@import url(./__button-signup/header__button-signup.css);
+@import url(./__select-films/header__select-films.css);
+@import url(./__select-button/header__select-button.css);
+@import url(./__select-button/_type_active/header__select-button_type_active.css);
+@import url(./__account-button/header__account-button.css);
+@import url(./__button-menu/header__button-menu.css);
+
+.header {
+  max-width: 100%;
+  height: 81px;
+  padding: 0 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media all and (max-width: 768px) {
+  .header {
+    padding: 0 30px;
+    height: 74px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .header {
+    padding: 0 14px;
+    height: 74px;
+  }
+}

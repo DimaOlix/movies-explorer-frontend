@@ -1,0 +1,25 @@
+.more-loader__button {
+  width: 100%;
+  max-width: 1140px;
+  height: 36px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #fff;
+  margin: 78px 70px 0;
+  border: none;
+  border-radius: 6px;
+  background-color: rgb(47, 47, 47);
+  cursor: pointer;
+}
+
+.more-loader__button:hover {
+  opacity: .7;
+}
+
+@media all and (max-width: 400px) {
+  .more-loader__button {
+    margin: 50px 10px 0;
+  }
+}

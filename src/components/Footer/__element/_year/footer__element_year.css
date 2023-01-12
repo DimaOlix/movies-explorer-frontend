@@ -1,0 +1,12 @@
+.footer__element_year {
+  grid-area: year;
+  justify-self: start;
+}
+
+@media all and (max-width: 400px) {
+  .footer__element_year {
+    color: rgb(139, 139, 139);
+    margin-top: 18px;
+    justify-self: center;
+  }
+}

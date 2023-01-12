@@ -1,0 +1,17 @@
+.window-form__link {
+  text-decoration: none;
+  color: rgb(66, 133, 244);
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.window-form__link:hover {
+  opacity: .7;
+}
+
+@media all and (max-width: 500px) {
+  .window-form__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

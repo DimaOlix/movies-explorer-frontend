@@ -1,0 +1,32 @@
+@import url(./__list/search-form__list.css);
+@import url(./__list/_few-cards/search-form__list_few-cards.css);
+@import url(./__input/.search-form__input.css);
+@import url(./__button/search-form__button.css);
+@import url(./__checkbox/search-form__checkbox.css);
+@import url(./__message/search-form__message.css);
+
+.search-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 10px;
+  row-gap: 30px;
+  grid-template-areas:
+  "input button"
+  "checkbox checkbox";
+  justify-items: center;
+  padding: 80px 70px 40px;
+}
+
+@media all and (max-width: 768px) {
+  .search-form {
+    padding: 80px 30px 40px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .search-form {
+    grid-template-columns: 212px auto;
+    row-gap: 45px;
+    padding: 60px 14px 40px;
+  }
+}

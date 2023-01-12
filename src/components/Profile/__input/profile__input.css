@@ -1,0 +1,14 @@
+.profile__input {
+  width: 90%;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #fff;
+  direction: rtl;
+  background-color: rgb(32, 32, 32);
+  border: none;
+}
+
+.profile__input:focus {
+  outline: 1px solid rgb(66, 66, 66);
+}

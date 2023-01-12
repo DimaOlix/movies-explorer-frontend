@@ -1,0 +1,15 @@
+.window-form__text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgb(139, 139, 139);
+  margin: 16px 0 0;
+}
+
+@media all and (max-width: 500px) {
+  .window-form__text {
+    margin: 16px 0 0;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

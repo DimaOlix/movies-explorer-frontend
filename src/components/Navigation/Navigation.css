@@ -1,0 +1,19 @@
+@import url(./__container/navigation__container.css);
+@import url(./_hidden/navigation_hidden.css);
+@import url(./__button-close/navigation__button-close.css);
+@import url(./__button-account/navigation__button-account.css);
+@import url(./__list/navigation__list.css);
+@import url(./__element/navigation__element.css);
+@import url(./__element/_type/navigation__element_type_active.css);
+@import url(./__link/navigation__link.css);
+
+.navigation {
+  width: 100%;
+  height: 100%;
+  background: rgba(32, 32, 32, .5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

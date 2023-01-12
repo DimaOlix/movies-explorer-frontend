@@ -1,0 +1,33 @@
+.header__button-signin {
+  display: flex;
+  width: 76px;
+  height: 35px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  text-decoration: none;
+  background-color: rgb(61, 220, 132);
+  margin-left: 25px;
+}
+
+.header__button-signin:hover {
+  opacity: .7;
+}
+
+@media all and (max-width: 768px) {
+  .header__button-signin {
+    height: 32px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .header__button-signin {
+    margin-left: 12px;
+    width: 54px;
+    height: 26px;
+  }
+}

@@ -1,0 +1,25 @@
+.footer__elements {
+  max-width: 1140px;
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-areas: 
+  "year none none";
+  justify-items: end;
+  column-gap: 20px;
+}
+
+@media all and (max-width: 400px) {
+  .footer__elements {
+    grid-template-columns: auto;
+
+    grid-template-areas: 
+    "none"
+    "none"
+    "year"
+    ;
+    justify-items: center;
+    row-gap: 12px;
+
+  }
+}

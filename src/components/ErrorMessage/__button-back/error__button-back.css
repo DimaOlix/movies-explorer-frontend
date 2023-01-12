@@ -1,0 +1,23 @@
+.error__button-back {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: rgb(32, 32, 32);
+  color: rgb(66, 133, 244);
+  border: none;
+  margin: 160px 0 0;
+  cursor: pointer;
+}
+
+.error__button-back:hover {
+  opacity: .7;
+}
+
+@media all and (max-width: 400px) {
+  .error__button-back {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 220px 0 0;
+
+  }
+}

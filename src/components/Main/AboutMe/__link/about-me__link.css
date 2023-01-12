@@ -1,0 +1,10 @@
+.about-me__link {
+  grid-area: link;
+  align-self: end;
+  text-decoration: none;
+  color: #fff;
+}
+
+.about-me__link:hover {
+  opacity: .5;
+}

@@ -1,0 +1,16 @@
+.movies-card__element {
+  list-style-type: none;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  max-width: 100%;
+  display: grid;
+  grid-template-areas: 
+  "image image"
+  "title duration";
+  cursor: pointer;
+}
+
+.movies-card__element:hover .movies-card__icon {
+  opacity: 1;
+}
